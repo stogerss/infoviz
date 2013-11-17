@@ -19,9 +19,7 @@
      "children": [
       {"name": "Livememe", "size": 1000},
       {"name": "Mercurynews", "size": 1000},
-      {"name": "Psmag", "size": 1000},
-      {"name": "Motherboard", "size": 1000},
-      {"name": "Theverge", "size": 1000}
+      {"name": "Psmag", "size": 1000}
      ]
     },
     {
@@ -40,8 +38,6 @@
         {"name": "", "size": 1000},
         {"name": "Gmail"},
         {"name": "Facebook", "size": 1000},
-        {"name": "", "size": 1000},
-        {"name": "Facebook", "size": 1000},
         {"name": "", "size": 1000}
      ]
    }]
@@ -54,14 +50,11 @@
      "name": "Imgur",
      "url": "http://i.imgur.com/GBob6.jpg",
      "children": [
-      {"name": "", "size": 721},
-      {"name": "", "size": 4294}
+      {"name": "", "size": 721}
      ]
     },
     {"name": "Imgur", "size": 1759, 
      "url": "http://i.imgur.com/GBob6.jpg"},
-    {"name": "Imgur", "size": 2165},
-    {"name": "Imgur", "size": 586},
     {"name": "Livememe", "size": 3331},
     {"name": "Tumblr", "size": 772},
     {"name": "Imgur", "size": 3322}

@@ -10,12 +10,6 @@
 
 <body>
 
-<div class="iframe-container">
-<iframe id="page-view" frameBorder="0" class="page-view">
-</iframe>
-</div>
-<br>
-
 <div id="wrapper">
 <div class="graph-view">
 	<div class="title"> <div class="indent"> Graph Detail </div> </div>
@@ -31,19 +25,54 @@
 <div class="annotations-container">
 	<div class="title"> <div class="indent"> Annotations </div> </div>
 	<div class="annotations">
-		<div class="annote"> First I did this </div>
-		<div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div>
-		<div class="annote"> Finally I did this</div>
-		<div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div>
-		<div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div>
+		<div class="annote-container" id="1"><div class="introjs-helperLayer"><span class="introjs-helperNumberLayer">1</span></div> <div class="annote"> First I did this </div> </div>
+
+		<div class="annote-container"><div class="introjs-helperLayer"><span class="introjs-helperNumberLayer">2</span></div> <div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div></div>
+
+		<div class="annote-container"><div class="introjs-helperLayer"><span class="introjs-helperNumberLayer">3</span></div><div class="annote"> Finally I did this</div></div>
+
+		<div class="annote-container"><div class="introjs-helperLayer"><span class="introjs-helperNumberLayer">4</span></div><div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div></div>
+
+		<div class="annote-container"><div class="introjs-helperLayer"><span class="introjs-helperNumberLayer">5</span></div><div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div></div>
 	</div>
 </div>
+<iframe frameBorder="0" style="height: 10px"> </iframe>
+<div class="center"> <span class="name"> http://www.reddit.com</span> <span class="at"> at </span> <span class="time"> 10:32am </span> </div>
+<div class="iframe-container">
+<iframe style="border: 2px solid #5F9F9F; box-shadow: 0 0 15px #5F9F9F;" id="page-view" class="page-view">
+</iframe>
+</div>
+
 </div>
 
 <script>
 	url = location.search.replace("?", "");
 	console.log(url);
 	document.getElementById("page-view").src = url;
+
+	function addListeners() {
+		ele = document.getElementById("1");
+		ele.onclick = function() { }
+	}
+
+	var e = document.getElementsByClassName("annote-container");
+	for(var i = 0; i<e.length; i++) {
+		e[i].addEventListener("click", modify, false);
+	}
+
+	function modify() {
+		console.log(this);
+
+		var e = document.getElementsByClassName("annote-container");
+		for(var i = 0; i<e.length; i++) {
+			e[i].style["background-color"] = "#fff";
+		}
+
+		this.style["background-color"] = "#FFFF99";
+	}
+
+
+	addListeners()
 
 </script>
 </body>

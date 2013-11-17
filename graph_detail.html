@@ -5,12 +5,32 @@
   <script src="js/d3.v3.min.js" charset="utf-8"></script>
   <script src="js/d3.tip.js"></script>
   <script src="js/render.js"></script>
+  <script src="js/jquery.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 
 <body>
+<div class="info">
 
+<div class="gd-title">
+<span class="graph-detail-title">
+Reddit, Imgur, Youtube
+</span>
+</div>
+
+<div class="graph-detail-tags">
+<span class="tag">#shopping</span> <span class="tag">#wishlist</span> <form style="display: inline; background-color: #eee; width: 20px"><input type="text" value="#" style="color: #62B1F6; width: 50px; border-radius: 5px; border: 0px solid #eee; font-size: 12px; background-color: #eee; padding: 5px" id="enter-tag"></form>
+</div>
+</div>
 <script>
 render()
+
+$("#enter-tag").keyup(function(event){
+	console.log("inside");
+    if(event.keyCode == 13){
+        console.log("entered");
+        // $(this)
+    }
+});
 </script>
 </body>

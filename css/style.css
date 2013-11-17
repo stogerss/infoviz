@@ -4,6 +4,34 @@
   stroke-width: 2px;
 }
 
+.name {
+  font: 14px sans-serif;
+  font-weight: bold;
+  color:#00868B;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  max-width: 10px;
+  overflow: hidden;
+}
+
+.center {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.at {
+  font: 12px sans-serif;
+  color: #B4CDCD;
+  padding: 5px;
+}
+
+.time {
+  font: 14px sans-serif;
+  color:#00868B;
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
 .title {
   font: 14px sans-serif;
   font-weight: bold;
@@ -34,9 +62,50 @@
   float: left;
 }
 
+.info {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.gd-title {
+  margin-bottom: 10px;
+}
+
+.graph-detail-title {
+  color: #ff4c4c;
+  border-radius: 5px;
+  padding: 5px;
+  font: 14px sans-serif;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.graph-detail-tags {
+  color: #62B1F6;
+}
+
+.tag {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  font: 12px sans-serif;
+}
+
+.enter-tag {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  font: 12px sans-serif;
+}
+
+.graph-detail-collaborators {
+
+}
+
 .annotations {
   height: 200px;
   overflow: scroll;
+  position: relative;
 }
 
 .annotations-container {
@@ -46,11 +115,24 @@
   float: right;
 }
 
-.annote {
+.annote-container {
   border-bottom: 2px solid #eee;
+
+}
+
+.annote-container:hover {
+  cursor: pointer;
+}
+
+.annote-container:onclick {
+  background-color: #eee;
+}
+
+.annote {
   font: 10px sans-serif;
   padding: 10px;
   float: top;
+  margin-left: 20px;
 }
 
 footer {
@@ -94,4 +176,42 @@ footer {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+
+.introjs-helperLayer {
+  background-color: #FFF;
+  background-color: rgba(255,255,255,.9);
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(0,0,0,.4);
+  -webkit-transition: all 0.3s ease-out;
+     -moz-transition: all 0.3s ease-out;
+      -ms-transition: all 0.3s ease-out;
+       -o-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
+}
+
+.introjs-helperNumberLayer {
+  position: absolute;
+  font-family: Arial, verdana, tahoma;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-left: 5px;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  background: #B4CDCD; /* Old browsers */
+  background: -webkit-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* Chrome10+,Safari5.1+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404)); /* Chrome,Safari4+ */
+  background:    -moz-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* FF3.6+ */
+  background:     -ms-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* IE10+ */
+  background:      -o-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* Opera 11.10+ */
+  background:         linear-gradient(to bottom, #B4CDCD 0%, #B4CDCD 100%);  /* W3C */
+  width: 20px;
+  height:20px;
+  font-size: 10px;
+  line-height: 20px;
+  border-radius: 50%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0); /* IE6-9 */ 
+  filter: progid:DXImageTransform.Microsoft.Shadow(direction=135, strength=2, color=ff0000); /* IE10 text shadows */
+  box-shadow: 0 2px 5px rgba(0,0,0,.4);
 }
