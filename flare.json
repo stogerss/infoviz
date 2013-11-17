@@ -48,15 +48,18 @@
   },
   {
    "name": "r/pics",
+   "url": "http://www.reddit.com/r/pics",
    "children": [
     {
      "name": "Imgur",
+     "url": "http://i.imgur.com/GBob6.jpg",
      "children": [
       {"name": "", "size": 721},
       {"name": "", "size": 4294}
      ]
     },
-    {"name": "Imgur", "size": 1759},
+    {"name": "Imgur", "size": 1759, 
+     "url": "http://i.imgur.com/GBob6.jpg"},
     {"name": "Imgur", "size": 2165},
     {"name": "Imgur", "size": 586},
     {"name": "Livememe", "size": 3331},

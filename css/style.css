@@ -4,8 +4,41 @@
   stroke-width: 2px;
 }
 
+.title {
+  font: 14px sans-serif;
+  font-weight: bold;
+  color:#00868B;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #eee;
+}
+
+.page-view {
+  height: 540px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.iframe-container {
+
+}
+
+.indent {
+  padding-left: 10px;
+}
+
+.graph-view {
+  height: 227px;
+  border: 2px solid; 
+}
+
+footer {
+  height: 200px;
+  overflow:scroll; 
+}
+
 .node {
-  font: 12px sans-serif;
+  font: 10px sans-serif;
   font-weight: bold;
 }
 
