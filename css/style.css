@@ -29,7 +29,28 @@
 
 .graph-view {
   height: 227px;
+  width: 69%;
   border: 2px solid; 
+  float: left;
+}
+
+.annotations {
+  height: 200px;
+  overflow: scroll;
+}
+
+.annotations-container {
+  height: 227px;
+  width: 29%;
+  border: 2px solid; 
+  float: right;
+}
+
+.annote {
+  border-bottom: 2px solid #eee;
+  font: 10px sans-serif;
+  padding: 10px;
+  float: top;
 }
 
 footer {
