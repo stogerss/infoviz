@@ -1,6 +1,6 @@
 function render() {
   var width = 700,
-      height = 750;
+      height = 500;
 
   var cluster = d3.layout.cluster()
       .size([height, width - 200]);
@@ -8,7 +8,7 @@ function render() {
   var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("footer").append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
@@ -43,7 +43,17 @@ function render() {
         .attr("r", 6)
         .on("mouseover", tip.show)
         .on("mouseout", tip.hide)
-        .on("click", function(d) { tip.hide(); location.href = "explore.html?"+d.url;});
+        .on("click", function(d) { 
+          tip.hide();
+          svg = d3.select("svg");
+          svg.selectAll("circle")
+            .style("fill", "#B4CDCD")
+            .style("stroke", "#5F9F9F")
+          current = d3.select(this);
+          current.style("fill", "#ffb2b2")
+            .style("stroke", "#ff4c4c");
+          document.getElementById("page-view").src = d.url;
+        });
 
     node.append("text")
         .attr("dx", function(d) { return d.children ? -10 : 10; })

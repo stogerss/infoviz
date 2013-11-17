@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <script src="js/d3.v3.min.js" charset="utf-8"></script>
+  <script src="js/d3.tip.js"></script>
+  <script src="js/explore_render.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+
+<div class="iframe-container">
+<iframe id="page-view" frameBorder="0" class="page-view">
+</iframe>
+</div>
+<br>
+
+<div class="graph-view">
+<div class="title"> <div class="indent"> Graph Detail </div> </div>
+<div class="indent">
+	<footer>
+		<script>
+		render()
+		</script>
+	</footer>
+</div>
+</div>
+
+<script>
+	url = location.search.replace("?", "");
+	console.log(url);
+	document.getElementById("page-view").src = url;
+
+</script>
+</body>
