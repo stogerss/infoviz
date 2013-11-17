@@ -1,0 +1,68 @@
+{
+ "name": "Reddit",
+ "url": "http://www.reddit.com",
+ "children": [
+  {
+   "name": "",
+   "url": "http://www.reddit.com/r/pics/comments/1qsle6/what_it_looks_like_when_you_light_a_dandelion_on/",
+   "children": [
+    {
+     "name": "Imgur",
+     "url": "http://i.imgur.com/GBob6.jpg",
+     "children": [
+      {"name": "", "size": 1000},
+      {"name": "Facebook", "size": 1000}
+     ]
+    },
+    {
+     "name": "",
+     "children": [
+      {"name": "Livememe", "size": 1000},
+      {"name": "Mercurynews", "size": 1000},
+      {"name": "Psmag", "size": 1000},
+      {"name": "Motherboard", "size": 1000},
+      {"name": "Theverge", "size": 1000}
+     ]
+    },
+    {
+     "name": "Mercurynews",
+     "children": [
+      {"name": "Crowdynews", "size": 1000}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Imgur",
+   "children": [
+    {"name": "Youtube", "children": 
+      [
+        {"name": "", "size": 1000},
+        {"name": "Gmail"},
+        {"name": "Facebook", "size": 1000},
+        {"name": "", "size": 1000},
+        {"name": "Facebook", "size": 1000},
+        {"name": "", "size": 1000}
+     ]
+   }]
+  },
+  {
+   "name": "r/pics",
+   "children": [
+    {
+     "name": "Imgur",
+     "children": [
+      {"name": "", "size": 721},
+      {"name": "", "size": 4294}
+     ]
+    },
+    {"name": "Imgur", "size": 1759},
+    {"name": "Imgur", "size": 2165},
+    {"name": "Imgur", "size": 586},
+    {"name": "Livememe", "size": 3331},
+    {"name": "Tumblr", "size": 772},
+    {"name": "Imgur", "size": 3322}
+   ]
+  }
+ ]
+}
