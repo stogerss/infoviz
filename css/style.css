@@ -95,17 +95,24 @@
 }
 
 .tag {
+  color: #62B1F6; 
   background-color: #eee;
   border-radius: 5px;
   padding: 5px;
   font: 12px sans-serif;
+  border: 1px solid white;
 }
 
-.enter-tag {
-  background-color: #eee;
-  border-radius: 5px;
-  padding: 5px;
-  font: 12px sans-serif;
+#enter-tag {
+  min-width: 50px;
+  width: 50px;
+  outline: none;
+  -moz-box-sizing:border-box; /* Firefox */
+  box-sizing: border-box;
+}
+
+#enter-tag:focus {
+  border: 1px solid #c1c1c1;
 }
 
 .graph-detail-collaborators {
@@ -156,16 +163,6 @@ footer {
   font-weight: bold;
 }
 
-
-.tag-input {
-  color: #62B1F6; 
-  width: 50px; 
-  border-radius: 5px; 
-  border: 0px solid #eee; 
-  font-size: 12px; 
-  background-color: #eee; 
-  padding: 5px
-}
 
 .link {
   fill: none;
