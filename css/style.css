@@ -68,14 +68,24 @@
 }
 
 .gd-title {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+
+.back {
+  font: 14px sans-serif;
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 5px;
+  position: relative;
+  float: left;
+  text-decoration:none;
+  color: inherit;
 }
 
 .graph-detail-title {
-  color: #ff4c4c;
   border-radius: 5px;
   padding: 5px;
-  font: 14px sans-serif;
+  font: 16px sans-serif;
   font-weight: bold;
   margin: 10px;
 }
@@ -133,6 +143,7 @@
   padding: 10px;
   float: top;
   margin-left: 20px;
+  width: 80%;
 }
 
 footer {
@@ -143,6 +154,17 @@ footer {
 .node {
   font: 10px sans-serif;
   font-weight: bold;
+}
+
+
+.tag-input {
+  color: #62B1F6; 
+  width: 50px; 
+  border-radius: 5px; 
+  border: 0px solid #eee; 
+  font-size: 12px; 
+  background-color: #eee; 
+  padding: 5px
 }
 
 .link {
@@ -157,6 +179,7 @@ footer {
   color: #fff;
   max-width: 300px;
   font: 12px sans-serif;
+  overflow: hidden;
 }
 
 

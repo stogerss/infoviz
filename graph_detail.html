@@ -18,8 +18,11 @@ Reddit, Imgur, Youtube
 </span>
 </div>
 
-<div class="graph-detail-tags">
-<span class="tag">#shopping</span> <span class="tag">#wishlist</span> <form style="display: inline; background-color: #eee; width: 20px"><input type="text" value="#" style="color: #62B1F6; width: 50px; border-radius: 5px; border: 0px solid #eee; font-size: 12px; background-color: #eee; padding: 5px" id="enter-tag"></form>
+<div class="graph-detail-tags" >
+<span id="tag-list">
+<span class="tag">#shopping</span> <span class="tag">#wishlist</span> 
+</span>
+<input type="text" value="#" class="tag-input" id="enter-tag">
 </div>
 </div>
 <script>
@@ -29,7 +32,8 @@ $("#enter-tag").keyup(function(event){
 	console.log("inside");
     if(event.keyCode == 13){
         console.log("entered");
-        // $(this)
+        $("#tag-list").append("<span class='tag'>" + $(this).val() + "</span>");
+        $("#enter-tag").val("#");
     }
 });
 </script>

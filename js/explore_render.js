@@ -1,6 +1,6 @@
 function render() {
   var width = 700,
-      height = 500;
+      height = 190;
 
   var cluster = d3.layout.cluster()
       .size([height, width - 200]);
