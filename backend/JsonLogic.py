@@ -13,8 +13,12 @@ class JsonLogic:
 
 		self.seenBefore[urlB] = 1
 
+		name = self.get_name(urlB)
+		if(self.get_name(urlA) == name):
+			name = ""
+
 		new_child = {}
-		new_child["name"] = self.get_name(urlB)
+		new_child["name"] = name
 		new_child["time"] = time
 		new_child["url"] = urlB
 		new_child["children"] = []
