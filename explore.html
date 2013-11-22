@@ -5,6 +5,7 @@
   <script src="js/d3.v3.min.js" charset="utf-8"></script>
   <script src="js/d3.tip.js"></script>
   <script src="js/explore_render.js"></script>
+  <script src="js/render.js"></script>
   <script src="js/jquery.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
@@ -15,7 +16,7 @@
 
 <div class="gd-title">
 <a class="back" href="graph_detail.html">Back</a>
-<span class="graph-detail-title">
+<span class="graph-detail-title" id="graph-title">
 Reddit, Imgur, Youtube
 </span>
 </div>
@@ -31,15 +32,17 @@ Reddit, Imgur, Youtube
 
 <div id="wrapper">
 <div class="graph-view">
-	<div class="title"> <div class="indent"> Graph Detail </div> </div>
-		<div class="indent">
-			<footer>
-				<script>
-				render()
-				</script>
-			</footer>
-		</div>
+	<div class="title"> 
+		<div class="indent"> Graph Detail </div> 
 	</div>
+	<div class="indent">
+		<footer>
+			<script>
+			explore_render()
+			</script>
+		</footer>
+	</div>
+</div>
 
 <div class="annotations-container">
 	<div class="title"> <div class="indent"> Annotations </div> </div>
@@ -57,8 +60,9 @@ Reddit, Imgur, Youtube
 		<div class="annote-container"><div class="introjs-helperLayer"><span class="introjs-helperNumberLayer">6</span></div><div class="annote"> Then I did this other thing because I am super kewl and you wish you were me and i need more things to write about here</div></div>
 	</div>
 </div>
+
 <iframe frameBorder="0" style="height: 10px"> </iframe>
-<div class="center"> <span class="name"> http://www.reddit.com</span> <span class="at"> at </span> <span class="time"> 10:32am </span> </div>
+<div class="center"> <span class="name" id="url-title"> http://www.reddit.com</span> <span class="at"> at </span> <span class="time" id="time-title"> 10:32am </span> </div>
 <div class="iframe-container">
 <iframe style="border: 2px solid #5F9F9F; box-shadow: 0 0 15px #5F9F9F;" id="page-view" class="page-view">
 </iframe>
@@ -67,9 +71,13 @@ Reddit, Imgur, Youtube
 </div>
 
 <script>
-	url = location.search.replace("?", "");
-	console.log(url);
+	args = location.search.split("?");
+	url = args[1].replace("&", "");
+	time = args[2]
+	
 	document.getElementById("page-view").src = url;
+	document.getElementById("url-title").innerHTML = url;
+	document.getElementById("time-title").innerHTML = time;
 
 	function addListeners() {
 		ele = document.getElementById("1");
@@ -91,7 +99,6 @@ Reddit, Imgur, Youtube
 
 		this.style["background-color"] = "#FFFF99";
 	}
-
 
 	addListeners()
 

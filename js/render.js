@@ -1,3 +1,7 @@
+function titler() {
+  document.getElementById("graph-title").innerHTML = title;
+}
+
 function render() {
   var width = 700,
       height = 500;
@@ -14,7 +18,72 @@ function render() {
     .append("g")
       .attr("transform", "translate(40,0)");
 
-  d3.json("flare.json", function(error, root) {
+  root = {
+ "name": "Reddit",
+ "url": "http://www.reddit.com",
+ "time": "10:35",
+ "children": [
+  {
+   "name": "Reddit",
+   "url": "http://www.reddit.com/r/pics/comments/1qsle6/what_it_looks_like_when_you_light_a_dandelion_on/",
+   "children": [
+    {
+     "name": "Imgur",
+     "url": "http://i.imgur.com/GBob6.jpg",
+     "children": [
+      {"name": "Imgur", "size": 1000},
+      {"name": "Facebook", "size": 1000}
+     ]
+    },
+    {
+     "name": "Reddit",
+     "children": [
+      {"name": "Livememe", "size": 1000},
+      {"name": "Mercurynews", "size": 1000},
+      {"name": "Psmag", "size": 1000}
+     ]
+    },
+    {
+     "name": "Mercurynews",
+     "children": [
+      {"name": "Crowdynews", "size": 1000}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Imgur",
+   "children": [
+    {"name": "Youtube", "children": 
+      [
+        {"name": "Youtube", "size": 1000},
+        {"name": "Gmail"},
+        {"name": "Facebook", "size": 1000},
+        {"name": "Youtube", "size": 1000}
+     ]
+   }]
+  },
+  {
+   "name": "r/pics",
+   "url": "http://www.reddit.com/r/pics",
+   "time": "10:40",
+   "children": [
+    {
+     "name": "Imgur",
+     "url": "http://imgur.com/gallery/7oVJDFP",
+     "children": [
+      {"name": "Imgur", "url": "http://imgur.com/wYaP89E", "size": 721, "children":[{"name": "Imgur", "url": "http://imgur.com/gallery/P6an83U", "children":[{"name": "Imgur"}]}]}
+     ]
+    },
+    {"name": "Imgur", "size": 1759, 
+     "url": "http://i.imgur.com/GBob6.jpg"},
+    {"name": "Livememe", "size": 3331},
+    {"name": "Tumblr", "size": 772}
+   ]
+  }
+ ]
+};
+  
     var nodes = cluster.nodes(root),
         links = cluster.links(nodes);
 
@@ -43,14 +112,38 @@ function render() {
         .attr("r", 6)
         .on("mouseover", tip.show)
         .on("mouseout", tip.hide)
-        .on("click", function(d) { tip.hide(); location.href = "explore.html?"+d.url;});
+        .on("click", function(d) { tip.hide(); location.href = "explore.html?"+d.url+"&?"+d.time;});
 
     node.append("text")
         .attr("dx", function(d) { return d.children ? -10 : 10; })
         .attr("dy", 4)
         .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
         .text(function(d) { return d.name; });
-  });
+ 
 
   d3.select(self.frameElement).style("height", height + "px");
+
+  nexts = [];
+  count = 0;
+  title = "";
+  nexts.push(root);
+
+  while (nexts.length != 0) {
+    cur = nexts.pop();
+    title += cur.name;
+    childs = cur.children;
+    for (c in childs) {
+      nexts.push(childs[c]);
+    }
+    if(count > 1) {
+      break;
+    } 
+    count += 1;
+    title += ", "
+  }
+
+  console.log(title);
+
+
+  titler(title);
 }

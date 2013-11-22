@@ -1,6 +1,7 @@
 {
  "name": "Reddit",
  "url": "http://www.reddit.com",
+ "time": "10:35",
  "children": [
   {
    "name": "Reddit",
@@ -45,6 +46,7 @@
   {
    "name": "r/pics",
    "url": "http://www.reddit.com/r/pics",
+   "time": "10:40",
    "children": [
     {
      "name": "Imgur",
