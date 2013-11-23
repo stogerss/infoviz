@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Webshare app",
+  "version": "1.0.0",
+  "description": "#yeezus",
+
+  "icons": {
+    "128" : "icon-128.png"
+  },
+
+  "browser_action": {
+	"default_icon": "icon-128.png"
+  },
+
+  "background": { "page": "background.html" },
+  "permissions": [ "tabs", "http://*/*", "https://*/*", "storage"],
+
+ "web_accessible_resources": [ "jq.js", "hrefclick_tracker.js", "newtab_tracker.js"],
+
+ "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["webshare.css"],
+      "js": ["jq.js", "hrefclick_tracker.js"],
+      "all_frames": true
+    }
+  ]
+}
