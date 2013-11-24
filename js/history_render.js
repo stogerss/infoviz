@@ -1,4 +1,24 @@
-function explore_render() {
+function render_multiple(json_list) {
+
+	// return
+	for (j in json_list) {
+		console.log(j)
+		json = json_list[j];
+		console.log(json);
+		add_html(j);
+		history_render(json, j);
+	}
+}
+
+function add_html(j) {
+
+	
+
+	$("body").append('<div class="graph-view"> <div class="title"> <div class="indent" id="title'+parseInt(j)+'"> Graph Detail </div> </div> <div class="indent"> <footer id=f' + parseInt(j) + '> </footer> </div> </div>');
+
+}
+
+function history_render(root, j) {
   var width = 700,
       height = 300;
 
@@ -8,77 +28,13 @@ function explore_render() {
   var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
-  var svg = d3.select("footer").append("svg")
+  var svg = d3.select("#f"+parseInt(j)).append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
       .attr("transform", "translate(40,0)");
 
-  root = {
- "name": "Reddit",
- "url": "http://www.reddit.com",
- "time": "10:35",
- "children": [
-  {
-   "name": "Reddit",
-   "url": "http://www.reddit.com/r/pics/comments/1qsle6/what_it_looks_like_when_you_light_a_dandelion_on/",
-   "children": [
-    {
-     "name": "Imgur",
-     "url": "http://i.imgur.com/GBob6.jpg",
-     "children": [
-      {"name": "Imgur", "size": 1000},
-      {"name": "Facebook", "size": 1000}
-     ]
-    },
-    {
-     "name": "Reddit",
-     "children": [
-      {"name": "Livememe", "size": 1000},
-      {"name": "Mercurynews", "size": 1000},
-      {"name": "Psmag", "size": 1000}
-     ]
-    },
-    {
-     "name": "Mercurynews",
-     "children": [
-      {"name": "Crowdynews", "size": 1000}
-     ]
-    }
-   ]
-  },
-  {
-   "name": "Imgur",
-   "children": [
-    {"name": "Youtube", "children": 
-      [
-        {"name": "Youtube", "size": 1000},
-        {"name": "Gmail"},
-        {"name": "Facebook", "size": 1000},
-        {"name": "Youtube", "size": 1000}
-     ]
-   }]
-  },
-  {
-   "name": "r/pics",
-   "url": "http://www.reddit.com/r/pics",
-   "time": "10:40",
-   "children": [
-    {
-     "name": "Imgur",
-     "url": "http://imgur.com/gallery/7oVJDFP",
-     "children": [
-      {"name": "Imgur", "url": "http://imgur.com/wYaP89E", "size": 721, "children":[{"name": "Imgur", "url": "http://imgur.com/gallery/P6an83U", "children":[{"name": "Imgur"}]}]}
-     ]
-    },
-    {"name": "Imgur", "size": 1759, 
-     "url": "http://i.imgur.com/GBob6.jpg"},
-    {"name": "Livememe", "size": 3331},
-    {"name": "Tumblr", "size": 772}
-   ]
-  }
- ]
-};
+
     var nodes = cluster.nodes(root),
         links = cluster.links(nodes);
 
@@ -128,7 +84,6 @@ function explore_render() {
         .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
         .text(function(d) { return d.name; });
 
-
   d3.select(self.frameElement).style("height", height + "px");
 
   nexts = [];
@@ -150,5 +105,9 @@ function explore_render() {
     title += ", "
   }
 
-  titler(title);
+  titler(title, j);
+}
+
+function titler(title, j) {
+  document.getElementById("title"+parseInt(j)).innerHTML = title;
 }
