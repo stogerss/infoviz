@@ -1,4 +1,4 @@
-function titler() {
+function titler(title) {
   document.getElementById("graph-title").innerHTML = title;
 }
 
