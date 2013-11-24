@@ -1,7 +1,4 @@
-console.log("IM HERE!");
-
-//$("body").css("background-color", "pink");
-
+//This function is the mouseclick tracker.
 $('a').live('mousedown',function(){
 	var x = $(this).attr('href');
 	var pathname = window.location.href;
