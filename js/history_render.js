@@ -12,15 +12,7 @@ function render_multiple(json_list) {
 
 function add_html(j) {
 
-	$("body").append('
-		<div class="graph-view"> 
-			<div class="title"> 
-				<div class="indent" id="title'+parseInt(j)+'"> Graph Detail </div> 
-			</div> 
-			<div class="indent"> 
-				<footer id=f' + parseInt(j) + '> </footer> 
-			</div>
-		</div>');
+	$("body").append('<div class="graph-view"> <div class="title"> <div class="indent" id="title'+parseInt(j)+'"> Graph Detail </div> </div> <div class="indent"> <footer id=f' + parseInt(j) + '> </footer> </div></div>');
 
 }
 

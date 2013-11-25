@@ -16,7 +16,7 @@
   "background": { "page": "background.html" },
   "permissions": [ "tabs", "http://*/*", "https://*/*", "storage"],
 
- "web_accessible_resources": [ "jq.js", "hrefclick_tracker.js", "newtab_tracker.js"],
+ "web_accessible_resources": [ "jq.js", "hrefclick_tracker.js"],
 
  "content_scripts": [
     {
