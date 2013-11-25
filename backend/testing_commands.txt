@@ -1,0 +1,11 @@
+curl -i -H "Content-Type: application/json" -X POST -d '{"id":"1", "from": "root", "to": "www.myspace.com"}' http://127.0.0.1:5000/webshare/api/v1.0/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{"id":"1", "from": "www.myspace.com", "to": "www.google.com"}' http://127.0.0.1:5000/webshare/api/v1.0/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{"id":"2", "from": "www.google.com", "to": "www.tumblr.com"}' http://127.0.0.1:5000/webshare/api/v1.0/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{"id":"3", "from": "root", "to": "www.myspace.com"}' http://127.0.0.1:5000/webshare/api/v1.0/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{"id":"1", "from": "root", "to": "www.myspace.com"}' http://127.0.0.1:5000/webshare/api/v1.0/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{"id":"1", "from": "root", "to": "www.myspace.com"}' http://127.0.0.1:5000/webshare/api/v1.0/
