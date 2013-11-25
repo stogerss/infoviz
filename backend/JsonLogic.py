@@ -1,56 +1,82 @@
 import tldextract
 import json
+from flask import jsonify
 
-class JsonLogic:
+# Tab Groupings in the form
+# =========================
+# {
+#    '1': [1,2,3],
+#    '5': [5,7,9]
+#}
+groups = {}
 
-	def __init__(self):
-		self.seenBefore = {}
-		self.json = {}
+# JSON data in the format of
+# ================================
+# {
+# "name": "Reddit",
+# "url": "http://www.reddit.com",
+# "time": "10:35",
+# "children": []
+# }
+graphs = {}
 
-	def push(self, urlA, urlB, time):
-		if urlB in self.seenBefore:
-			return self.json  # shouldn't update front end though
+def get_name(url):
+    extracted = tldextract.extract(url)
+    name = extracted.domain
+    name = name[0].upper() + name[1:]
+    return name
 
-		self.seenBefore[urlB] = 1
+def seen_before(url, graph_root):
+    q = []
+    q.append(graph_root)
+    while(len(q) != 0):
+        cur = q.pop()
+        if cur['url'] == url:
+            return True
+        for child in cur['children']:
+            q.append(child)
 
-		name = self.get_name(urlB)
-		if(self.get_name(urlA) == name):
-			name = ""
+    return False
 
-		new_child = {}
-		new_child["name"] = name
-		new_child["time"] = time
-		new_child["url"] = urlB
-		new_child["children"] = []
-		
-		if(urlA==""):
-			self.json = new_child
-		else:
-			self.update_json(new_child, urlA)
+def find_group(tab_id, node, parent_url):
+    """
+    Searches through 'groups' dictionary for the correct tab grouping.
+    If it is a new ID, find its appropriate parent, append it, and return.
 
-	def update_json(self, new_child, parent_url):
-		# find parent in json
-		# add to children elements
-		q = []
-		q.append(self.json)
-		while(len(q) != 0):
-			cur = q.pop()
-			if (cur["url"] == parent_url):
-				cur["children"].append(new_child)
-				return
-			for child in cur["children"]:
-				q.append(child)
+    Returns a string of the group.
+    """
+    print groups
+    for x, y in groups.iteritems():
+        if tab_id in y:
+            return x
 
+    for x, y in graphs.iteritems():
+        q = []
+        q.append(y)
+        while len(q) != 0:
+            cur = q.pop()
+            if cur['url'] == parent_url:
+                groups[x].append(tab_id)
+                return x
+            for child in cur['children']:
+                q.append(child)
+    
+    return None
 
-	def get_json(self):
-		return json.dumps(self.json)
+def format_return():
+    """
+    Self explanatory.
+    """
+    to_ret = [g[1] for g in graphs.iteritems()]
+    return jsonify({'graph': to_ret}), 201
 
-	def get_name(self, url):
-		extracted = tldextract.extract(url)
-		name = extracted.domain
-		name = name[0].upper() + name[1:]
-		return name
-
-	def display(self):
-		print("======")
-		print(self.json)
+def update_json(new_child, parent_url, graph_root):
+    q = []
+    q.append(graph_root)
+    while len(q) != 0:
+        cur = q.pop()
+        if cur['url'] == parent_url:
+            cur['children'].append(new_child)
+            return
+        for child in cur['children']:
+            q.append(child)
