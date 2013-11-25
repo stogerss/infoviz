@@ -12,9 +12,15 @@ function render_multiple(json_list) {
 
 function add_html(j) {
 
-	
-
-	$("body").append('<div class="graph-view"> <div class="title"> <div class="indent" id="title'+parseInt(j)+'"> Graph Detail </div> </div> <div class="indent"> <footer id=f' + parseInt(j) + '> </footer> </div> </div>');
+	$("body").append('
+		<div class="graph-view"> 
+			<div class="title"> 
+				<div class="indent" id="title'+parseInt(j)+'"> Graph Detail </div> 
+			</div> 
+			<div class="indent"> 
+				<footer id=f' + parseInt(j) + '> </footer> 
+			</div>
+		</div>');
 
 }
 
@@ -61,6 +67,20 @@ function history_render(root, j) {
 
     node.append("circle")
         .attr("r", 6)
+        .style("fill", function(d) {
+        	if (d.highlight) {
+        		return "#ffb2b2";
+        	} else {
+        		return "#B4CDCD";
+        	}
+        })
+        .style("stroke", function(d) {
+        	if (d.highlight) {
+        		return "#ff4c4c";
+        	} else {
+        		return "#5F9F9F";
+        	}
+        })
         .on("mouseover", tip.show)
         .on("mouseout", tip.hide)
         .on("click", function(d) { 
