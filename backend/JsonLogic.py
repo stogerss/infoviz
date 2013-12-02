@@ -20,6 +20,9 @@ groups = {}
 # }
 graphs = {}
 
+# Current IP Address
+session = "The fuck"
+
 def get_name(url):
     extracted = tldextract.extract(url)
     name = extracted.domain
@@ -45,7 +48,6 @@ def find_group(tab_id, node, parent_url):
 
     Returns a string of the group.
     """
-    print groups
     for x, y in groups.iteritems():
         if tab_id in y:
             return x
@@ -80,3 +82,13 @@ def update_json(new_child, parent_url, graph_root):
             return
         for child in cur['children']:
             q.append(child)
+
+def check_new_ip(current_ip):
+    """
+    Resets IP
+    """
+    if current_ip != session:
+        global session
+        session = current_ip
+        graphs = {}
+        groups = {}

@@ -3,6 +3,9 @@
 from flask import Flask, jsonify, make_response, request, abort
 from JsonLogic import *
 import datetime
+from mechanize import Browser
+from heapq import *
+from copy import deepcopy
 
 app = Flask(__name__)
 app.config.from_object('settings')
@@ -12,6 +15,8 @@ def get_graph():
     """
     API GET that will return all browsing data in JSON form (connections).
     """
+    check_new_ip(request.remote_addr)
+
     return format_return()
 
 @app.route('/webshare/api/v1.0/', methods = ['POST'])
@@ -19,6 +24,9 @@ def store_new():
     """
     API POST request which stores a new link.
     """
+
+    check_new_ip(request.remote_addr)
+
     # Fail if request is not formatted correctly.
     if (not request.json or 
         not 'id' in request.json or
@@ -62,9 +70,28 @@ def store_new():
 
 @app.route('/webshare/api/v1.0/search/<string:query>', methods = ['GET'])
 def get_highlighted_graph(query):
-    # TODO
-    pass
+    check_new_ip(request.remote_addr)
 
+    queries = query.split(" ")
+    highlighted_graph = deepcopy(graphs)
+
+    for x, y in highlighted_graph.iteritems():
+        q = []
+        q.append(y)
+        while len(q) != 0:
+            cur = q.pop()
+            page = mech.open(cur['url'])
+            html = page.read()
+            frequency = 0
+            for q in queries:
+                frequency = html.count(q)
+            if frequency > 0:
+                cur['count'] = frequency
+            for child in cur['children']:
+                q.append(child)
+
+    to_ret = [g[1] for g in highlighted_graph.iteritems()]
+    return jsonify({'graph': to_ret}), 201
 
 @app.errorhandler(404)
 def not_found(error):
