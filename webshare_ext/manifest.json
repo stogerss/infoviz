@@ -16,13 +16,13 @@
   "background": { "page": "background.html" },
   "permissions": [ "tabs", "http://*/*", "https://*/*", "storage"],
 
- "web_accessible_resources": [ "jq.js", "hrefclick_tracker.js"],
+ "web_accessible_resources": [ "jq.js", "purl.js", "hrefclick_tracker.js"],
 
  "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
       "css": ["webshare.css"],
-      "js": ["jq.js", "hrefclick_tracker.js"],
+      "js": [ "jq.js", "purl.js", "hrefclick_tracker.js"],
       "all_frames": true
     }
   ]

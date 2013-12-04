@@ -1,12 +1,40 @@
+$.ajaxSetup({
+  contentType: "application/json; charset=utf-8"
+});
+
 console.log("I'm the background");
 var node_list = [];
 var root_ids = [];
+var localhost = "http://localhost:5000/webshare/api/v1.0/";
+
+function getURLFromSearch(search) {
+	var s = decodeURIComponent(search);
+	var url_index = s.indexOf("&url=");
+	//Remove all before it
+	if (url_index >= 0) {
+		//Offset by 5 so we remove the url paramater
+		s = s.substring(url_index + 5);
+	}
+	//Remove all after it
+	url_index = s.indexOf("&");
+	if (url_index >= 0){
+		s = s.substring(0,url_index);
+	}
+	console.log(s);
+	return s;
+}
 
 //This function will eventually push to server
-function registerNode(node){
-	node_list.push(node);
-	console.log(node);
-
+function registerNode(node){	
+	//console.log(node);
+	var node_string = JSON.stringify(node);
+	console.log("Pushing" + node_string);
+	$.post(localhost, node_string, function(data){
+		//console.log(data);
+		console.log("Sucessful push");
+		node_list.push(node);
+	});
+	
 }
 
 //When we create a new tab, we mark it as a tab that has been created by chrome. 
@@ -49,11 +77,31 @@ chrome.runtime.onMessage.addListener(function(data, sender){
 	}
 	if (data.node != null){
 		var node = data.node;
+
+		if (! data.node.to || ! data.node.from) {
+			//Don't do anything its a shit url
+			return;
+		}
+		
+		if (data.node.from.indexOf("www.google") >= 0) {
+			//if its a google search
+			var to_url = data.node.to;
+			to_url = getURLFromSearch(to_url);
+			data.node.to = to_url;
+		} else if (data.node.to.indexOf("http") < 0 ) {
+			//if its just a path
+			//todo CHECK #?
+			var from_url = $.url(data.node.from);
+			data.node.to = from_url.attr('host') + "/" + data.node.to;
+		}
+
 		if (sender.tab != null) {
 			node["id"] = sender.tab.id;
 		} else {
+			//Default id is 0
 			node["id"] = 0;
 		}
+
 		registerNode(node);
 	}
 });
