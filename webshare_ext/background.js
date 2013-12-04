@@ -46,6 +46,13 @@ chrome.tabs.onCreated.addListener(function(tab){
 	}
 });
 
+chrome.tabs.onReplaced.addListener(function(tabid1, tabid2, tab) {
+	console.log("called onreplaced");
+	console.log(tabid1);
+	console.log(tabid2);
+	console.log(tab);
+});
+
 //Then when a "newtab" is updated with some url, it acts as a root node.
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	
