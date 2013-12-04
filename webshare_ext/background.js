@@ -88,11 +88,14 @@ chrome.runtime.onMessage.addListener(function(data, sender){
 			var to_url = data.node.to;
 			to_url = getURLFromSearch(to_url);
 			data.node.to = to_url;
-		} else if (data.node.to.indexOf("http") < 0 ) {
+		} else if ($.url(data.node.to).attr('host') == "") {
 			//if its just a path
 			//todo CHECK #?
+			console.log("ThinKS to url is jsut a path " + data.node.to);
 			var from_url = $.url(data.node.from);
-			data.node.to = from_url.attr('host') + "/" + data.node.to;
+			var host = from_url.attr('host');
+			var prot = from_url.attr('protocol') + "://";
+			data.node.to = prot + host + data.node.to;
 		}
 
 		if (sender.tab != null) {
