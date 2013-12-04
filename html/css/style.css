@@ -41,6 +41,15 @@
   background-color: #eee;
 }
 
+.history-view {
+  border-radius: 5px;
+  padding: 5px;
+  font: 20px sans-serif;
+  font-weight: bold;
+  margin: 20px;
+  float: middle;
+}
+
 .page-view {
   height: 500px;
   overflow: hidden;
@@ -56,15 +65,15 @@
 }
 
 .graph-view {
-  height: 227px;
-  width: 69%;
+  width: 100%;
   border: 2px solid; 
   float: left;
+  margin-bottom: 10px;
 }
 
 .info {
   text-align: center;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
 }
 
 .gd-title {
@@ -80,18 +89,41 @@
   float: left;
   text-decoration:none;
   color: inherit;
+  margin-bottom: 10px;
 }
 
 .graph-detail-title {
   border-radius: 5px;
   padding: 5px;
-  font: 16px sans-serif;
+  font: 20px sans-serif;
   font-weight: bold;
   margin: 10px;
 }
 
 .graph-detail-tags {
   color: #62B1F6;
+}
+
+.search {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  font: 12px sans-serif;
+  border: 1px solid white;
+
+  padding: 8px;
+  position: absolute;
+  float: left;
+  text-decoration:none;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+#enter-search {
+  min-width: 100px;
+  outline: none;
+  -moz-box-sizing:border-box; /* Firefox */
+  box-sizing: border-box;
 }
 
 .tag {
@@ -102,6 +134,8 @@
   font: 12px sans-serif;
   border: 1px solid white;
 }
+
+
 
 #enter-tag {
   min-width: 50px;
