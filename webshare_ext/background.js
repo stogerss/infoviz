@@ -39,14 +39,16 @@ function registerNode(node){
 
 //When we create a new tab, we mark it as a tab that has been created by chrome. 
 chrome.tabs.onCreated.addListener(function(tab){
-	root_ids.push(tab.id);
+	
+	//TODO: Only a newtab if you go to newtab, need to make this more general?
+	if (tab.url.indexOf("newtab") >= 0) {
+		root_ids.push(tab.id);	
+	}
 });
 
 //Then when a "newtab" is updated with some url, it acts as a root node.
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	
-	//console.log(tab.url);
-
 	if (tab.url.indexOf("newtab") >= 0) {
 		return;
 	}
