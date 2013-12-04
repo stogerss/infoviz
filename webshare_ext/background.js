@@ -39,34 +39,36 @@ function registerNode(node){
 
 //When we create a new tab, we mark it as a tab that has been created by chrome. 
 chrome.tabs.onCreated.addListener(function(tab){
-	
-	//TODO: Only a newtab if you go to newtab, need to make this more general?
-	if (tab.url.indexOf("newtab") >= 0) {
-		root_ids.push(tab.id);	
-	}
+	root_ids.push(tab.id);
 });
 
 //Then when a "newtab" is updated with some url, it acts as a root node.
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	if (changeInfo.status == "complete") {
-		var valid = false;
-		var current_id = -1;
-		for (var i=0; i< root_ids.length; i++){
-			if (root_ids[i] == tabId){
-				valid = true;
-				current_id = i;
-			}
-		}
-		if (! valid ) {
-			//Not a root node
-			return;
-		} else {
-			if (tab.url.indexOf("http") >= 0 ) {
-				root_ids.splice(current_id,1);
-				registerNode({"from": "root", "to": tab.url, "id": tabId});
-			}
+	
+	//console.log(tab.url);
+
+	if (tab.url.indexOf("newtab") >= 0) {
+		return;
+	}
+
+	var valid = false;
+	var current_id = -1;
+	for (var i=0; i< root_ids.length; i++){
+		if (root_ids[i] == tabId){
+			valid = true;
+			current_id = i;
 		}
 	}
+	if (! valid ) {
+		//Not a root node
+		return;
+	} else {
+		if (tab.url.indexOf("http") >= 0 ) {
+			root_ids.splice(current_id,1);
+			registerNode({"from": "root", "to": tab.url, "id": tabId});
+		}
+	}
+	
 });
 
 //Get messages from client scripts
