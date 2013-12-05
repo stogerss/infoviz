@@ -114,8 +114,7 @@ def get_highlighted_graph(query):
     for g in highlighted_graph.iteritems():
         print g
 
-    #donald this
-    to_ret = [g[1] for g in highlighted_graph.iteritems()]
+    to_ret = [g[1] for g in highlighted_graph.iteritems() if highlight_exists(g[1])]
     print to_ret
     return jsonify({'graph': to_ret}), 201
 

@@ -22,7 +22,7 @@ groups = {}
 graphs = {}
 
 # Current IP Address
-session = "The fuck"
+session = "The heck"
 
 def get_name(url):
 
@@ -111,3 +111,15 @@ def check_new_ip(current_ip):
         session = current_ip
         graphs = {}
         groups = {}
+
+def highlight_exists(graph_root):
+    q = []
+    q.append(graph_root)
+    while len(q) != 0:
+        cur = q.pop()
+        if cur['count']:
+            return True
+        for child in cur['children']:
+            q.append(child)
+
+    return False
