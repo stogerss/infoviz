@@ -80,24 +80,41 @@ def get_highlighted_graph(query):
     queries = query.split(" ")
     highlighted_graph = deepcopy(graphs)
 
+
     for x, y in highlighted_graph.iteritems():
         q = []
         q.append(y)
         while len(q) != 0:
             cur = q.pop()
-            browser = mechanize.Browser()
-            browser.set_handle_robots(False)
-            page = browser.open(cur['url'])
-            html = page.read()
-            html = html.decode('utf-8')
-            frequency = 0
-            for x in queries:
-                frequency = html.count(x)
-            if frequency > 0:
-                cur['count'] = frequency
-            for child in cur['children']:
-                q.append(child)
+            print cur
+           
+            try:
+                browser = mechanize.Browser()
+                browser.set_handle_robots(False)
+                page = browser.open(cur['url'])
+                html = page.read()
+                html = html.decode('utf-8')
+                frequency = 0
+                for x in queries:
+                    frequency = html.count(x)
+                if frequency > 0:
+                    cur['count'] = frequency
+                for child in cur['children']:
+                    q.append(child)
+            except:
+                url = cur['url']
+                for x in queries:
+                    if x in url:
+                        cur['count']  = 1
+                #name = cur['name']
+                for child in cur['children']:
+                    q.append(child)
 
+    print "TITS"            
+    for g in highlighted_graph.iteritems():
+        print g
+
+    #donald this
     to_ret = [g[1] for g in highlighted_graph.iteritems()]
     print to_ret
     return jsonify({'graph': to_ret}), 201

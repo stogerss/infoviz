@@ -26,12 +26,26 @@ session = "The fuck"
 
 def get_name(url):
 
-    extracted = urlparse(url)
+    extracted = tldextract.extract(url) #tldextract is good at getting the domain and subdomain
     print extracted
-    name = extracted.netloc.split(".")[1]
+    name = extracted.domain 
     name = name[0].upper() + name[1:]
-    #this doesnt do many things most times, will figure tomorrow
-    name += extracted.path.split("/")[0]
+    subdomain = extracted.subdomain
+    #if subdomain != "":
+        #name = subdomain + "." + name should we do this?
+
+    extracted = urlparse(url) #urlparse is good at getting path
+    path = extracted.path
+    if len(path) > 1:
+        if "/wiki/" in path or "/reddit/r/" in path:
+            path = path.split("/")[2] #because the wiki is just extraneous we want the page title
+        if path[0] == "/":
+            path = path.split("/")[1]
+        else:
+            path = path.split("/")[0]
+
+        name += " " + path
+
     return name
 
 def seen_before(url, graph_root):
