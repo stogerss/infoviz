@@ -25,5 +25,10 @@
       "js": [ "jq.js", "purl.js", "hrefclick_tracker.js"],
       "all_frames": true
     }
-  ]
+  ],
+
+  "chrome_url_overrides": {
+    "history": "html/history_view.html"
+  }
+
 }

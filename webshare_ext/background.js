@@ -6,6 +6,7 @@ console.log("I'm the background");
 var node_list = [];
 var root_ids = [];
 var localhost = "http://localhost:5000/webshare/api/v1.0/";
+var currently_active = {};
 
 function getURLFromSearch(search) {
 	var s = decodeURIComponent(search);
@@ -42,24 +43,25 @@ chrome.tabs.onCreated.addListener(function(tab){
 	
 	//TODO: Only a newtab if you go to newtab, need to make this more general?
 	if (tab.url.indexOf("newtab") >= 0) {
+		//If its a newtab page, then you put its id in the root_ids array
 		root_ids.push(tab.id);	
-	}
+	} 
+
 });
 
-chrome.tabs.onReplaced.addListener(function(tabid1, tabid2, tab) {
-	console.log("called onreplaced");
-	console.log(tabid1);
-	console.log(tabid2);
-	console.log(tab);
+chrome.tabs.onRemoved.addListener(function(tabId) {
+	delete currently_active[tabId];
 });
 
 //Then when a "newtab" is updated with some url, it acts as a root node.
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	
 	if (tab.url.indexOf("newtab") >= 0) {
+		//If its still newtab, then you just ignore it
 		return;
 	}
 
+	//Check if its coming straight from a newtab
 	var valid = false;
 	var current_id = -1;
 	for (var i=0; i< root_ids.length; i++){
@@ -68,12 +70,24 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 			current_id = i;
 		}
 	}
+
 	if (! valid ) {
+		//If its not a root node, check if its a url change from a previous node
+		if (tabId in currently_active) {
+			if (currently_active[tab.id] != tab.url) {
+				//Register the node as being changed (WARNING: MAY DOUBLE UP WITH LINK!)
+				registerNode({"from": currently_active[tab.id], "to": tab.url, "id": tab.id});
+				currently_active[tab.id] = tab.url;
+			}
+		}
 		//Not a root node
 		return;
 	} else {
+		//TODO: This may be jank - make it better
+		//Checking if its a legit url that its going to
 		if (tab.url.indexOf("http") >= 0 ) {
 			root_ids.splice(current_id,1);
+			currently_active[tabId] = tab.url;
 			registerNode({"from": "root", "to": tab.url, "id": tabId});
 		}
 	}
