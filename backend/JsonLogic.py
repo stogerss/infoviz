@@ -1,4 +1,5 @@
 import tldextract
+from urlparse import urlparse
 import json
 from flask import jsonify
 
@@ -24,9 +25,13 @@ graphs = {}
 session = "The fuck"
 
 def get_name(url):
-    extracted = tldextract.extract(url)
-    name = extracted.domain
+
+    extracted = urlparse(url)
+    print extracted
+    name = extracted.netloc.split(".")[1]
     name = name[0].upper() + name[1:]
+    #this doesnt do many things most times, will figure tomorrow
+    name += extracted.path.split("/")[0]
     return name
 
 def seen_before(url, graph_root):

@@ -3,7 +3,7 @@
 from flask import Flask, jsonify, make_response, request, abort
 from JsonLogic import *
 import datetime
-from mechanize import Browser
+import mechanize
 from heapq import *
 from copy import deepcopy
 
@@ -27,9 +27,14 @@ def store_new():
 
     check_new_ip(request.remote_addr)
 
+    print request
+
     # Fail if request is not formatted correctly.
-    if (not request.json or 
-        not 'id' in request.json or
+    if not request.json:
+        print "JSON not in request"
+        abort(400)
+
+    if (not 'id' in request.json or
         not 'from' in request.json or
         not 'to' in request.json):
         abort(400)
@@ -80,17 +85,21 @@ def get_highlighted_graph(query):
         q.append(y)
         while len(q) != 0:
             cur = q.pop()
-            page = mech.open(cur['url'])
+            browser = mechanize.Browser()
+            browser.set_handle_robots(False)
+            page = browser.open(cur['url'])
             html = page.read()
+            html = html.decode('utf-8')
             frequency = 0
-            for q in queries:
-                frequency = html.count(q)
+            for x in queries:
+                frequency = html.count(x)
             if frequency > 0:
                 cur['count'] = frequency
             for child in cur['children']:
                 q.append(child)
 
     to_ret = [g[1] for g in highlighted_graph.iteritems()]
+    print to_ret
     return jsonify({'graph': to_ret}), 201
 
 @app.errorhandler(404)
