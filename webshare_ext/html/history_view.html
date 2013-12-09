@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<head>
+  <script src="js/d3.v3.min.js" charset="utf-8"></script>
+  <script src="js/d3.tip.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/general.js"></script>
+  <script src="js/explore_render.js"></script>
+  <script src="js/history_render.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<body>
+
+<div id="history" class="page">
+
+  <div class="top-bar">
+    <div class="search-box">
+      <input type="text" placeholder="Search through your visual history " class="search" id="graph-search">
+    </div>
+  </div>
+
+  <div id="history-graph-container" class="graph-container">
+    <!-- History graphs are appended to this div -->
+  </div>
+
+
+  <div id="search-graph-container" class="hidden graph-container">
+    Search results
+    <div id="search-graph-results"></div>
+  </div>
+
+</div>
+
+<!-- This section is activated once we click into one of the graphs -->
+<div id="explore" class="page hidden">
+  
+  <div class="info">
+    <div class="back-button">
+       <a class="back" id="explore-back-button">Back</a>
+    </div>
+
+    <div class="gd-title">
+     
+      <span class="graph-detail-title" id="graph-title">
+        Reddit, Imgur, Youtube
+      </span>
+    </div>
+
+    <div class="graph-detail-tags">
+      <span id="tag-list">
+        <span class="tag">#shopping</span>
+        <span class="tag">#wishlist</span> 
+      </span>
+      <input type="text" value="#" class="tag" id="enter-tag">
+    </div>
+  </div>
+
+  <div class="graph-explore-wrapper">
+  <div class="graph-view">
+    <div class="title"> 
+      <div class="indent"> Graph Detail </div> 
+    </div>
+    <div class="indent">
+      <div id="detail-graph-container">
+      </div>
+    </div>
+  </div>
+
+  <div class="center"> 
+    <span class="name" id="url-title"> http://www.reddit.com</span> 
+    <span class="at"> at </span> 
+    <span class="time" id="time-title"> 10:32am </span>
+  </div>
+  <div class="iframe-container">
+    <iframe style="border: 2px solid #5F9F9F; box-shadow: 0 0 15px #5F9F9F;" id="page-view" class="page-view">
+    </iframe>
+  </div>
+</div>
+
+</body>
+</html>

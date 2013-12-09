@@ -2,7 +2,7 @@
 
 from flask import Flask, jsonify, make_response, request, abort
 from JsonLogic import *
-import datetime
+import time
 import mechanize
 from heapq import *
 from copy import deepcopy
@@ -43,14 +43,14 @@ def store_new():
     tab_id = int(request.json['id'])
     from_url = request.json['from']
     to_url = request.json['to']
-    time = str(datetime.datetime.now().time())[:8]
+    date = time.strftime("  %c")
     name = get_name(to_url)
 
     # Create new Node
     new_child = {
             'name': name,
             'url': to_url,
-            'time': time,
+            'time': date,
             'children': []
             }
 

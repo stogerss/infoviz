@@ -117,7 +117,7 @@ def highlight_exists(graph_root):
     q.append(graph_root)
     while len(q) != 0:
         cur = q.pop()
-        if cur['count']:
+        if 'count' in cur and cur['count']:
             return True
         for child in cur['children']:
             q.append(child)

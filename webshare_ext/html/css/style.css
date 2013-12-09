@@ -1,0 +1,288 @@
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
+  color: #1c1c1c;
+}
+
+.page {
+  position: absolute;
+  top:0px;
+  left:0px;
+  width: 100%;
+  height: 100%;
+  padding:10px;
+  background: white;
+  box-sizing: border-box;
+}
+
+
+/*** GENERAL UI **/
+
+.top-bar {
+  height: 40px;
+  position: fixed;
+  background: rgba(255,255,255,0.8);
+  width: 100%;
+  top: 0px;
+  padding-top: 5px;
+  left: 0px;
+  box-shadow: 0px 1px 8px rgba(180,180,180,0.1);
+}
+
+.top-bar .search-box {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.search-box .search {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid white;
+  padding: 8px;
+  text-decoration:none;
+  color: gray;
+  width: 100%;
+  outline: none;
+}
+
+.search:active, .search:focus {
+  border: 1px solid rgba(120,120,120,.1);
+}
+
+
+
+.back {
+  
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 5px;
+  position: relative;
+  float: left;
+  text-decoration:none;
+  color: inherit;
+  margin-bottom: 10px;
+  cursor:pointer;
+}
+
+.back:hover {
+  color: black;
+}
+
+
+
+#enter-search {
+  min-width: 100px;
+  outline: none;
+  -moz-box-sizing:border-box; /* Firefox */
+  box-sizing: border-box;
+}
+
+.hidden {
+  display:none;
+}
+
+.title {
+  /* TODO DO 
+  font: 14px sans-serif;
+  font-weight: bold;
+  color:#00868B;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #eee; */
+}
+
+
+/**  !!! HISTORY SPECIFIC !!! **/
+
+.graph-container {
+  background: white;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.graph-view {
+  width: 100%;
+  float: left;
+  clear: left;
+  margin-bottom: 20px;
+  border-bottom: 1px dotted rgba(180,180,180,0.7);
+
+}
+
+.graph-view > div {
+  float: left;
+}
+
+.graph-view .graph-title {
+  width: 35%;
+}
+
+.graph-view .graph-title > div {
+  float: right;
+  clear: right;
+  margin-right: 20px;
+  text-align: right;
+}
+
+.graph-title .date {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+.graph-title .name span {
+  font-weight: bold;
+  color: rgb(48, 156, 255)
+}
+
+.graph-view .graph-holder {
+  width: 65%;
+  overflow: scroll;
+}
+
+/* !!!EXPLORE CSS!!!! */
+
+.center {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.at {
+  font: 12px sans-serif;
+  color: #B4CDCD;
+  padding: 5px;
+}
+
+.time {
+  font: 14px sans-serif;
+  color:#00868B;
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+/* Page -view is the iframe */
+.page-view {
+  height: 500px;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* tag css??? */
+.tag {
+  color: #62B1F6; 
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  
+  border: 1px solid white;
+}
+
+
+
+#enter-tag {
+  min-width: 50px;
+  width: 50px;
+  outline: none;
+  -moz-box-sizing:border-box; /* Firefox */
+  box-sizing: border-box;
+}
+
+#enter-tag:focus {
+  border: 1px solid #c1c1c1;
+}
+
+/* GRAPH SPECIFIC CSS */
+svg circle {
+
+  stroke-width: 2px;
+}
+
+svg circle.active {
+  stroke: rgb(0, 143, 255);
+  fill: rgb(98, 186, 255);
+}
+
+svg circle.inactive {
+  fill: silver;
+  stroke: rgb(184, 184, 184);
+}
+
+.node {
+  /* LABEL THINGS! */
+  position: relative;
+  top: -5px;
+}
+
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.d3-tip {
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  max-width: 300px;
+  
+  overflow: hidden;
+}
+
+
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.introjs-helperLayer {
+  background-color: #FFF;
+  background-color: rgba(255,255,255,.9);
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(0,0,0,.4);
+  -webkit-transition: all 0.3s ease-out;
+     -moz-transition: all 0.3s ease-out;
+      -ms-transition: all 0.3s ease-out;
+       -o-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
+}
+
+.introjs-helperNumberLayer {
+  position: absolute;
+  font-family: Arial, verdana, tahoma;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-left: 5px;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  background: #B4CDCD; /* Old browsers */
+  background: -webkit-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* Chrome10+,Safari5.1+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404)); /* Chrome,Safari4+ */
+  background:    -moz-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* FF3.6+ */
+  background:     -ms-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* IE10+ */
+  background:      -o-linear-gradient(top, #B4CDCD 0%, #B4CDCD 100%); /* Opera 11.10+ */
+  background:         linear-gradient(to bottom, #B4CDCD 0%, #B4CDCD 100%);  /* W3C */
+  width: 20px;
+  height:20px;
+  font-size: 10px;
+  line-height: 20px;
+  border-radius: 50%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0); /* IE6-9 */ 
+  filter: progid:DXImageTransform.Microsoft.Shadow(direction=135, strength=2, color=ff0000); /* IE10 text shadows */
+  box-shadow: 0 2px 5px rgba(0,0,0,.4);
+}
