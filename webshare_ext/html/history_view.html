@@ -36,48 +36,32 @@
 
 <!-- This section is activated once we click into one of the graphs -->
 <div id="explore" class="page hidden">
-  
-  <div class="info">
-    <div class="back-button">
-       <a class="back" id="explore-back-button">Back</a>
-    </div>
+    <div class="top-bar">
+      <div class="back-button">
+         <a class="back" id="explore-back-button">Back</a>
+      </div>
 
-    <div class="gd-title">
-     
-      <span class="graph-detail-title" id="graph-title">
-        Reddit, Imgur, Youtube
-      </span>
-    </div>
-
-    <div class="graph-detail-tags">
-      <span id="tag-list">
-        <span class="tag">#shopping</span>
-        <span class="tag">#wishlist</span> 
-      </span>
-      <input type="text" value="#" class="tag" id="enter-tag">
-    </div>
-  </div>
-
-  <div class="graph-explore-wrapper">
-  <div class="graph-view">
-    <div class="title"> 
-      <div class="indent"> Graph Detail </div> 
-    </div>
-    <div class="indent">
-      <div id="detail-graph-container">
+      <div class="gd-title">
+        <span class="graph-detail-title" id="graph-title">
+          Graph title
+        </span>
       </div>
     </div>
-  </div>
 
-  <div class="center"> 
-    <span class="name" id="url-title"> http://www.reddit.com</span> 
-    <span class="at"> at </span> 
-    <span class="time" id="time-title"> 10:32am </span>
+  <div class="graph-view">
+    <div id="detail-graph-container">
+    </div>
   </div>
-  <div class="iframe-container">
-    <iframe style="border: 2px solid #5F9F9F; box-shadow: 0 0 15px #5F9F9F;" id="page-view" class="page-view">
-    </iframe>
-  </div>
+  <div class="graph-visit">
+    <div class="iframe-url"> 
+      <span class="name" id="url-title"> http://www.reddit.com</span> 
+      at
+      <span class="time" id="time-title"> 10:32am </span>
+    </div>
+    <div class="iframe-container">
+      <iframe  id="page-view" class="graph-iframe">
+      </iframe>
+    </div>
 </div>
 
 </body>

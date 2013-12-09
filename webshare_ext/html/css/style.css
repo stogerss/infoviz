@@ -15,6 +15,10 @@ body {
   box-sizing: border-box;
 }
 
+#explore {
+  padding: 10px 0px;
+}
+
 
 /*** GENERAL UI **/
 
@@ -27,6 +31,10 @@ body {
   padding-top: 5px;
   left: 0px;
   box-shadow: 0px 1px 8px rgba(180,180,180,0.1);
+}
+
+#explore .top-bar {
+  position: absolute;
 }
 
 .top-bar .search-box {
@@ -50,7 +58,17 @@ body {
   border: 1px solid rgba(120,120,120,.1);
 }
 
+#enter-search {
+  min-width: 100px;
+  outline: none;
+  -moz-box-sizing:border-box; /* Firefox */
+  box-sizing: border-box;
+}
 
+.top-bar .back-button {
+  float: left;
+  margin-left: 40px;
+}
 
 .back {
   
@@ -69,13 +87,12 @@ body {
   color: black;
 }
 
-
-
-#enter-search {
-  min-width: 100px;
-  outline: none;
-  -moz-box-sizing:border-box; /* Firefox */
-  box-sizing: border-box;
+.top-bar .gd-title {
+  margin: 0 auto;
+  width: 500px;
+  padding: 10px 0px;
+  font-size: 14px;
+  text-align: center;
 }
 
 .hidden {
@@ -110,32 +127,60 @@ body {
 
 }
 
+#explore .graph-view {
+  border-bottom: 1px dotted rgb(134, 216, 255);
+}
+
 .graph-view > div {
   float: left;
 }
 
+.graph-view #detail-graph-container {
+  width: 800px;
+  margin: 0 auto;
+  float: none;
+}
+
 .graph-view .graph-title {
   width: 35%;
+  padding-left: 25%;
+  box-sizing: border-box;
 }
 
 .graph-view .graph-title > div {
-  float: right;
-  clear: right;
-  margin-right: 20px;
-  text-align: right;
+  float: left;
+  clear: left;
+  min-width: 150px;
 }
+
+.graph-view .graph-visit {
+  float: left;
+  width: 100%;
+}
+
 
 .graph-title .date {
   margin-bottom: 5px;
   font-weight: bold;
 }
 
+.graph-title .name .domain {
+  margin-bottom: 5px;
+  color: rgba(48, 156, 255,0.5)
+}
 
-.graph-title .name span {
-  font-weight: bold;
+.graph-title .name .domain span {
   color: rgb(48, 156, 255)
 }
 
+#graph-title .domain {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+#graph-title .domain span {
+  font-weight: bold;
+}
 .graph-view .graph-holder {
   width: 65%;
   overflow: scroll;
@@ -143,6 +188,46 @@ body {
 
 /* !!!EXPLORE CSS!!!! */
 
+.graph-visit {
+  float: left;
+  width: 100%;
+}
+
+.graph-visit .iframe-url {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: -10px;
+  padding: 10px 0px;
+  background: rgba(98, 186, 255,0.17);
+  position: relative;
+  top: -20px;
+}
+
+.graph-visit .iframe-url .name {
+  color: rgb(0, 143, 255);
+  font-weight:bold;
+}
+
+.graph-visit .iframe-url .time {
+  font-weight: bold;
+}
+
+.graph-visit .iframe-container {
+  width: 100%;
+  border-top: 2px solid rgb(134, 216, 255);
+  position: relative;
+  top: -20px;
+}
+
+.iframe-container .graph-iframe {
+  height: 500px;
+  width: 100%;
+  border: none;
+  background: rgb(235, 235, 235);
+}
+
+/*
 .center {
   text-align: center;
   padding-bottom: 5px;
@@ -159,7 +244,7 @@ body {
   color:#00868B;
   padding-top: 5px;
   padding-bottom: 15px;
-}
+}*/
 
 /* Page -view is the iframe */
 .page-view {
@@ -194,7 +279,7 @@ body {
 
 /* GRAPH SPECIFIC CSS */
 svg circle {
-
+  cursor: crosshair;
   stroke-width: 2px;
 }
 
@@ -215,45 +300,65 @@ svg circle.inactive {
 }
 
 
+.node .node-text {
+  font-size: 10px;
+  width: 50px;
+  height: 30px;
+}
+
+
+#history .node .node-text {
+  display: none;
+ 
+  pointer-events: none;
+}
+
+#history .node:hover .node-text {
+  display: block;
+  pointer-events: all;
+}
+
+#explore .node .node-text {
+  display: block;
+  opacity:1;
+}
+
+
+.node-text a, .node-text a:visited, .node-text a:hover  {
+  text-decoration: inherit;
+  color:inherit;
+}
+
+.node-text a:hover {
+  color: red;
+}
+
 .link {
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px;
 }
 
-.d3-tip {
-  padding: 5px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  max-width: 300px;
-  
-  overflow: hidden;
-}
 
-
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
+.d3-tip { 
+  width: 150px;
+  height: auto;
+  color: gray;
   font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
+  padding: 5px;
 }
 
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
+.d3-tip .node-url {
+  width: 100%;
+  height: auto;
+  overflow:hidden;
+  display: none; /*UNCOMMENT TO RETIP*/
 }
 
 .introjs-helperLayer {
   background-color: #FFF;
   background-color: rgba(255,255,255,.9);
   border-radius: 4px;
-  box-shadow: 0 2px 15px rgba(0,0,0,.4);
   -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
       -ms-transition: all 0.3s ease-out;

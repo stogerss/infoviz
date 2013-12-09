@@ -1,5 +1,3 @@
-
-
 function prettyDate(dt)
 { 
 	dt = new Date(dt);
@@ -18,7 +16,7 @@ function prettyDate(dt)
     return ret;
 }           
 
-function applyTitle(j, root) {
+function getTitle(root) {
 	
 	nexts = [];
   	nexts.push(root);
@@ -39,7 +37,6 @@ function applyTitle(j, root) {
 			nexts.push(childs[c]);
 		}
   	}
-  	console.log(names);
 
   	var title = "";
   	for (var key in names) {
@@ -57,14 +54,10 @@ function applyTitle(j, root) {
   		}
   		title += "</div>"
   	}
-  	titler(j, title, prettyDate(root.time));
+  	return [title, prettyDate(root.time)];
 
 }
 
-function titler(j, title, date) {
-  $("#title" + parseInt(j)).html(title);
-  $("#date" + parseInt(j)).html(date);
-}
 
 function getHTML() {
 

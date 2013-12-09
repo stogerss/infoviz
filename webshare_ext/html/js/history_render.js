@@ -1,3 +1,4 @@
+
 function transferToExplore(){
   //should launch explore
   var body_scroll = $("body").scrollTop();
@@ -44,8 +45,7 @@ function history_render(root, j) {
       .attr("width", width)
       .attr("height", height)
       .append("g")
-      .attr("transform", "translate(100,0)");
-
+      .attr("transform", "translate(50,-15)");
 
     var nodes = cluster.nodes(root),
         links = cluster.links(nodes);
@@ -64,9 +64,9 @@ function history_render(root, j) {
 
     var tip = d3.tip()
         .attr('class', 'd3-tip')
-        .offset([-10, 0])
+        .offset([-5, 0])
         .html(function(d) {
-          return "<span>" + d.url + "</span>";
+          return "<div class='node-url'>" + d.url + "</div>";
         });
 
     svg.append("tip_holder").call(tip);
@@ -88,13 +88,20 @@ function history_render(root, j) {
           explore_render(root);
         });
 
-    node.append("text")
-        .attr("dx", function(d) { return d.children ? -10 : 10; })
-        .attr("dy", 4)
-        .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-        .text(function(d) { return d.name; });
+    node.append("foreignObject")
+        .attr("x", function(d) { return d.children ? -10 : 10; })
+        .attr("y", -32)
+        .attr('width', 200)
+        .attr('height', 200)
+        .append("xhtml:div")
+        .html(function(d) {return "<div class='node-text'>" + "<a href='"+ d.url +"'>" + d.name + "</a></div>"});
 
-  d3.select(self.frameElement).style("height", height + "px");
-  applyTitle(j,root);
+    var deets = getTitle(root);
+    titler(j, deets[0], deets[1]);
   
+}
+
+function titler(j, title, date) {
+  $("#title" + parseInt(j)).html(title);
+  $("#date" + parseInt(j)).html(date);
 }

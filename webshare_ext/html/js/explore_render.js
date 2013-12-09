@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 
 function explore_render(root) {
-  var width = 700,
+  var width = 800,
       height = 300;
 
   var cluster = d3.layout.cluster()
@@ -19,71 +19,70 @@ function explore_render(root) {
   var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
-
-  //TODO: wrap svg around container?
   var svg = d3.select("#detail-graph-container").append("svg")
       .attr("width", width)
       .attr("height", height)
-    .append("g")
+      .append("g")
       .attr("transform", "translate(40,0)");
 
     var nodes = cluster.nodes(root),
-        links = cluster.links(nodes);
+      links = cluster.links(nodes);
 
     var link = svg.selectAll(".link")
-        .data(links)
+      .data(links)
       .enter().append("path")
-        .attr("class", "link")
-        .attr("d", diagonal);
+      .attr("class", "link")
+      .attr("d", diagonal);
 
     var node = svg.selectAll(".node")
-        .data(nodes)
+      .data(nodes)
       .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
     var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-          return "<span>" + d.url + "</span>";
-        });
-
-    svg.append("tip_holder").call(tip);
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return "<div class='node-url'" + d.url + "</div>";
+      });
 
     node.append("circle")
-        .attr("r", 6)
-        .attr("class", function(d, i) {
-          if (i==0){
-            return "active";
-          } else {
-            return "inactive";
-          }
-        })
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide)
-        .on("click", function(d) { 
-          tip.hide();
-          svg = d3.select("#explore svg");
-          console.log(svg);
+      .attr("r", 6)
+      .attr("class", function(d, i) {
+        if (i==0){
+          return "active";
+        } else {
+          return "inactive";
+        }
+      })
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
+      .on("click", function(d) { 
+        tip.hide();
+        svg = d3.select("#explore svg");
+        console.log(svg);
 
-          svg.selectAll("circle")
-            .attr("class", "inactive");
+        svg.selectAll("circle")
+          .attr("class", "inactive");
 
-          var current = d3.select(this);
-          current.attr("class", "active");
+        var current = d3.select(this);
+        current.attr("class", "active");
 
-          document.getElementById("page-view").src = d.url;
-          $("#url-title").text(d.url);
-          $("#time-title").text(d.time);
-        });
+        document.getElementById("page-view").src = d.url;
+        $("#url-title").text(d.url);
+        $("#time-title").text(d.time);
+      });
 
-    node.append("text")
-        .attr("dx", function(d) { return d.children ? -10 : 10; })
-        .attr("dy", 4)
-        .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-        .text(function(d) { return d.name; });
+    node.append("foreignObject")
+      .attr("x", function(d) { return d.children ? -10 : 10; })
+      .attr("y", 15)
+      .attr('width', 200)
+      .attr('height', 200)
+      .append("xhtml:div")
+      .html(function(d) {return "<div class='node-text active'>" + "<a href='"+ d.url +"'>" + d.name + "</a></div>"});
 
   d3.select(self.frameElement).style("height", height + "px");
-  applyTitle(j,root)
+  var deets = getTitle(root);
+  $("#graph-title").html(deets[0]);
 }
