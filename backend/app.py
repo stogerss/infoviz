@@ -7,6 +7,7 @@ import mechanize
 from heapq import *
 from copy import deepcopy
 import json
+import settings
 
 app = Flask(__name__)
 app.config.from_object('settings')
@@ -16,6 +17,8 @@ def get_graph():
     """
     API GET that will return all browsing data in JSON form (connections).
     """
+
+    print graphs
     return format_return()
 
 @app.route('/webshare/api/v1.0/', methods = ['POST'])
@@ -114,16 +117,22 @@ def get_highlighted_graph(query):
 
 @app.route('/webshare/api/v1.0/new_session_from/<string:file_name>', methods = ['GET'])
 def new_session_from(file_name):
-    json_data = open(ROOT + '/saved_sessions/' + file_name)
-    data = json.load(json_data)
-    groups = data['groups']
-    graphs = data['graphs']
+    data = []
+    with open (settings.ROOT + '/saved_sessions/' + file_name + '.txt', 'r') as inf:
+        for line in inf:
+            data.append(json.loads(line))
+
+    global groups
+    groups = data[0]['groups']
     
+    global graphs
+    graphs = data[0]['graphs']
+
     return format_return()
 
 @app.route('/webshare/api/v1.0/save_session_as/<string:session_name>', methods = ['GET'])
 def save_session(session_name):
-    with open (ROOT + '/saved_sessions/' + session_name,'w') as out:
+    with open (settings.ROOT + '/saved_sessions/' + session_name + '.txt', 'w') as out:
         data = {'groups': groups, 'graphs': graphs}
         json.dump(data, out)
 
