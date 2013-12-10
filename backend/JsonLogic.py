@@ -2,6 +2,7 @@ import tldextract
 from urlparse import urlparse
 import json
 from flask import jsonify
+import settings
 
 # Tab Groupings in the form
 # =========================
@@ -19,7 +20,6 @@ groups = {}
 # "time": "10:35",
 # "children": []
 # }
-global graphs
 graphs = {}
 
 def get_name(url):
@@ -114,3 +114,26 @@ def highlight_exists(graph_root):
             q.append(child)
 
     return False
+
+def save_session_as_handler(session_name):
+    with open (settings.ROOT + '/saved_sessions/' + session_name + '.txt', 'w') as out:
+        global groups
+        global graphs
+        data = {'groups': groups, 'graphs': graphs}
+        json.dump(data, out)
+
+    return format_return()
+
+def new_session_from_handler(session_name):
+    data = []
+    with open (settings.ROOT + '/saved_sessions/' + session_name + '.txt', 'r') as inf:
+        for line in inf:
+            data.append(json.loads(line))
+
+    global groups
+    groups = data[0]['groups']
+    
+    global graphs
+    graphs = data[0]['graphs']
+
+    return format_return()
