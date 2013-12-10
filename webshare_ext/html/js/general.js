@@ -62,7 +62,7 @@ function getTitle(root) {
   			if (sub == "") {
   				//do nothing
   			} else if (count==0){
-  				title += ": " + sub;
+  				title += "/ " + sub;
   				count++;
   			} else {
   				title += ", " + sub;
