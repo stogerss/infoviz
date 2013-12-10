@@ -47,46 +47,85 @@ function history_render(root, j) {
       .append("g")
       .attr("transform", "translate(50,-15)");
 
-    var nodes = cluster.nodes(root),
-        links = cluster.links(nodes);
+  $("#f" + parseInt(j) + " svg").on("hover", function(e){
+    
+    console.log(e.target);
+    var p = $(e.target);
+    if ($(p).is("svg")) {
+      p = $(p).parent();
+    }
 
-    var link = svg.selectAll(".link")
-        .data(links)
-      .enter().append("path")
-        .attr("class", "link")
-        .attr("d", diagonal);
+    if (e.type == "mouseenter") {
 
-    var node = svg.selectAll(".node")
-        .data(nodes)
-        .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      //Create it
+      var click_div =  document.createElement("div");
+      click_div.id = "explore-button";
+      $(click_div).html("CLICK ME SLUTFACE OR ILL FUCK YOU IN THE ASSHOLE");
+      //Bind it
+      $(click_div).on("click", function(){
+        transferToExplore();
+        explore_render(root);
+      });
 
-    node.append("circle")
-        .attr("r", 6)
-        .attr("class", function(d) {
-        	if (d.count) {
-        		return "active";
-        	} else {
-        		return "inactive";
-        	}
-        })
-        .on("click", function(d) { 
-          transferToExplore();
-          explore_render(root);
-          setIFrame(d);
-        });
+      $(p).append(click_div);
 
-    node.append("foreignObject")
-        .attr("x", function(d) { return d.children ? -10 : 10; })
-        .attr("y", -32)
-        .attr('width', 200)
-        .attr('height', 200)
-        .append("xhtml:div")
-        .html(function(d) {return "<div class='node-text'>" + "<a href='"+ d.url +"'>" + d.name + "</a></div>"});
+    } else {
+      $("#explore-button").remove();
+    }
+    
+  });
 
-    var deets = getTitle(root);
-    titler(j, deets[0], deets[1]);
+  var nodes = cluster.nodes(root),
+      links = cluster.links(nodes);
+
+  var link = svg.selectAll(".link")
+      .data(links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", diagonal);
+
+  var node = svg.selectAll(".node")
+      .data(nodes)
+      .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+  var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-5, 0])
+      .html(function(d) {
+        return "<div class='node-url'>" + d.url + "</div>";
+      });
+
+  svg.append("tip_holder").call(tip);
+
+  node.append("circle")
+      .attr("r", 6)
+      .attr("class", function(d) {
+      	if (d.count) {
+      		return "active";
+      	} else {
+      		return "inactive";
+      	}
+      })
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
+      .on("click", function(d) { 
+        tip.hide();
+        window.open(d.url);
+        
+      });
+
+  node.append("foreignObject")
+      .attr("x", function(d) { return d.children ? -10 : 10; })
+      .attr("y", 10)
+      .attr('width', 200)
+      .attr('height', 200)
+      .append("xhtml:div")
+      .html(function(d) {return "<div class='node-text'>" + "<a href='"+ d.url +"'>" + d.name + "</a></div>"});
+
+  var deets = getTitle(root);
+  titler(j, deets[0], deets[1]);
   
 }
 

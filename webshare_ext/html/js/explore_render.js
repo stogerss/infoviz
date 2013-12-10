@@ -74,7 +74,7 @@ function explore_render(root) {
 
     node.append("foreignObject")
       .attr("x", function(d) { return d.children ? -10 : 10; })
-      .attr("y", 15)
+      .attr("y", 10)
       .attr('width', 200)
       .attr('height', 200)
       .append("xhtml:div")
