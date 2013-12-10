@@ -56,7 +56,7 @@ chrome.tabs.onRemoved.addListener(function(tabId) {
 //Then when a "newtab" is updated with some url, it acts as a root node.
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	
-	console.log("Updated: " + tab.url);
+	console.log("Updated: " + tab.url + " at " + tabId);
 
 	if (tab.url.indexOf("newtab") >= 0) {
 		//If its still newtab, then you just ignore it

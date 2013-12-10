@@ -309,13 +309,13 @@ svg circle.inactive {
 
 #history .node .node-text {
   display: none;
- 
   pointer-events: none;
 }
 
 #history .node:hover .node-text {
   display: block;
   pointer-events: all;
+  opacity: 1;
 }
 
 #explore .node .node-text {
@@ -337,22 +337,6 @@ svg circle.inactive {
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px;
-}
-
-
-.d3-tip { 
-  width: 150px;
-  height: auto;
-  color: gray;
-  font-size: 10px;
-  padding: 5px;
-}
-
-.d3-tip .node-url {
-  width: 100%;
-  height: auto;
-  overflow:hidden;
-  display: none; /*UNCOMMENT TO RETIP*/
 }
 
 .introjs-helperLayer {

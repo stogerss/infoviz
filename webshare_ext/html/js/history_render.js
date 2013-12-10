@@ -62,15 +62,6 @@ function history_render(root, j) {
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-5, 0])
-        .html(function(d) {
-          return "<div class='node-url'>" + d.url + "</div>";
-        });
-
-    svg.append("tip_holder").call(tip);
-
     node.append("circle")
         .attr("r", 6)
         .attr("class", function(d) {
@@ -80,12 +71,10 @@ function history_render(root, j) {
         		return "inactive";
         	}
         })
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide)
         .on("click", function(d) { 
-          tip.hide();
           transferToExplore();
           explore_render(root);
+          setIFrame(d);
         });
 
     node.append("foreignObject")

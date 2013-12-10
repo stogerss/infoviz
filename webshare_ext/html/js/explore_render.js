@@ -69,9 +69,7 @@ function explore_render(root) {
         var current = d3.select(this);
         current.attr("class", "active");
 
-        document.getElementById("page-view").src = d.url;
-        $("#url-title").text(d.url);
-        $("#time-title").text(d.time);
+        setIFrame(d);
       });
 
     node.append("foreignObject")

@@ -123,3 +123,9 @@ $(document).ready(function(){
 	});
 
 });
+
+function setIFrame(d) {
+  document.getElementById("page-view").src = d.url;
+  $("#url-title").text(d.url);
+  $("#time-title").text(d.time);
+}
