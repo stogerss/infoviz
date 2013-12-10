@@ -32,6 +32,23 @@ function add_html(j, container) {
 
 function history_render(root, j) {
 
+  //Create the explore clicker for this guy
+  var click_div =  document.createElement("div");
+  click_div.id = "explore-button" + parseInt(j);
+  $(click_div).attr('class', "explore-button");
+  $(click_div).html("Explore more..");
+  
+  //Bind it
+  $(click_div).on("click", function(){
+    transferToExplore();
+    explore_render(root);
+  });
+
+  var title_element = $("#f" + parseInt(j)).parent().children(".graph-title")[0];
+  $(title_element).append(click_div);
+
+
+  //Create the SVG and stuff..
   var width = 700,
       height = 250;
 
@@ -46,34 +63,6 @@ function history_render(root, j) {
       .attr("height", height)
       .append("g")
       .attr("transform", "translate(50,-15)");
-
-  $("#f" + parseInt(j) + " svg").on("hover", function(e){
-    
-    console.log(e.target);
-    var p = $(e.target);
-    if ($(p).is("svg")) {
-      p = $(p).parent();
-    }
-
-    if (e.type == "mouseenter") {
-
-      //Create it
-      var click_div =  document.createElement("div");
-      click_div.id = "explore-button";
-      $(click_div).html("CLICK ME SLUTFACE OR ILL FUCK YOU IN THE ASSHOLE");
-      //Bind it
-      $(click_div).on("click", function(){
-        transferToExplore();
-        explore_render(root);
-      });
-
-      $(p).append(click_div);
-
-    } else {
-      $("#explore-button").remove();
-    }
-    
-  });
 
   var nodes = cluster.nodes(root),
       links = cluster.links(nodes);
@@ -118,7 +107,7 @@ function history_render(root, j) {
 
   node.append("foreignObject")
       .attr("x", function(d) { return d.children ? -10 : 10; })
-      .attr("y", 10)
+      .attr("y", 15)
       .attr('width', 200)
       .attr('height', 200)
       .append("xhtml:div")

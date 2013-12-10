@@ -18,20 +18,33 @@ function prettyDate(dt)
 
 function getTitle(root) {
 	
+	console.log(root);
+
 	nexts = [];
   	nexts.push(root);
-  	var names = {};
+  	var names = {}; 
 
   	while (nexts.length != 0) {
   		cur = nexts.pop();
   		var current = cur.name.split(" ");
-  		if (current.length == 1) {
-  			names[current[0]] = ["EMPTY"];
-  		} else if (!(current[0] in names)){
-			names[current[0]] = [current[1]];
-		} else {
-			names[current[0]].push(current[1]);
-		}
+
+  		if (current[0] in names) {
+  			
+  			console.log(current);
+  			console.log(names[current[0]]);
+
+  			if (current.length != 1) {
+  				if ($.inArray(current[1], names[current[0]]) == -1){
+  					names[current[0]].push(current[1]);	
+  				}
+  			}
+  		} else {
+  			if (current.length != 1) {
+  				names[current[0]] = [current[1]];	
+  			} else {
+  				names[current[0]] = [""];
+  			}
+  		}
 		childs = cur.children;
 		for (c in childs){
 			nexts.push(childs[c]);
@@ -39,15 +52,18 @@ function getTitle(root) {
   	}
 
   	var title = "";
+  	var count = 0;
   	for (var key in names) {
   		title += "<div class='domain'>"
   		title += "<span>" + key + "</span>";
+  		count = 0;
   		for (var i = 0; i< names[key].length; i++){
   			var sub = names[key][i];
-  			if (sub == "EMPTY") {
-  				continue;
-  			} else if (i==0){
+  			if (sub == "") {
+  				//do nothing
+  			} else if (count==0){
   				title += ": " + sub;
+  				count++;
   			} else {
   				title += ", " + sub;
   			}
