@@ -21,9 +21,6 @@ groups = {}
 # }
 graphs = {}
 
-# Current IP Address
-session = "The heck"
-
 def get_name(url):
 
     extracted = tldextract.extract(url) #tldextract is good at getting the domain and subdomain
@@ -101,16 +98,6 @@ def update_json(new_child, parent_url, graph_root):
             return
         for child in cur['children']:
             q.append(child)
-
-def check_new_ip(current_ip):
-    """
-    Resets IP
-    """
-    if current_ip != session:
-        global session
-        session = current_ip
-        graphs = {}
-        groups = {}
 
 def highlight_exists(graph_root):
     q = []

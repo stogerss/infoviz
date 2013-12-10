@@ -6,6 +6,7 @@ import time
 import mechanize
 from heapq import *
 from copy import deepcopy
+import json
 
 app = Flask(__name__)
 app.config.from_object('settings')
@@ -15,8 +16,6 @@ def get_graph():
     """
     API GET that will return all browsing data in JSON form (connections).
     """
-    check_new_ip(request.remote_addr)
-
     return format_return()
 
 @app.route('/webshare/api/v1.0/', methods = ['POST'])
@@ -24,9 +23,6 @@ def store_new():
     """
     API POST request which stores a new link.
     """
-
-    check_new_ip(request.remote_addr)
-
     print request
 
     # Fail if request is not formatted correctly.
@@ -75,8 +71,6 @@ def store_new():
 
 @app.route('/webshare/api/v1.0/search/<string:query>', methods = ['GET'])
 def get_highlighted_graph(query):
-    check_new_ip(request.remote_addr)
-
     queries = query.split(" ")
     highlighted_graph = deepcopy(graphs)
 
@@ -117,6 +111,23 @@ def get_highlighted_graph(query):
     to_ret = [g[1] for g in highlighted_graph.iteritems() if highlight_exists(g[1])]
     print to_ret
     return jsonify({'graph': to_ret}), 201
+
+@app.route('/webshare/api/v1.0/new_session_from/<string:file_name>', methods = ['GET'])
+def new_session_from(file_name):
+    json_data = open(ROOT + '/saved_sessions/' + file_name)
+    data = json.load(json_data)
+    groups = data['groups']
+    graphs = data['graphs']
+    
+    return format_return()
+
+@app.route('/webshare/api/v1.0/save_session_as/<string:session_name>', methods = ['GET'])
+def save_session(session_name):
+    with open (ROOT + '/saved_sessions/' + session_name,'w') as out:
+        data = {'groups': groups, 'graphs': graphs}
+        json.dump(data, out)
+
+    return format_return()
 
 @app.errorhandler(404)
 def not_found(error):
