@@ -1,3 +1,26 @@
+//Define some global variables
+Window.scroll_save = 0;
+Window.localhost = "http://127.0.0.1:5000/webshare/api/v1.0/";
+Window.server_data;
+
+
+//Session functions
+function saveSession(sess) {
+	$.get(Window.localhost + "save_session_as/" + sess, function(data) {
+		console.log("Saved session");
+		console.log(data);
+	})
+}
+
+function restoreSession(sess) {
+	$.get(Window.localhost + "new_session_from/" + sess, function(data) {
+		console.log("Restored session");
+		console.log(data);
+		render_multiple(data.graph, "#history-graph-container");
+	})
+}
+
+//Naming functions (used by both js files)
 function prettyDate(dt)
 { 
 	dt = new Date(dt);
@@ -18,8 +41,6 @@ function prettyDate(dt)
 
 function getTitle(root) {
 	
-	console.log(root);
-
 	nexts = [];
   	nexts.push(root);
   	var names = {}; 
@@ -30,9 +51,6 @@ function getTitle(root) {
 
   		if (current[0] in names) {
   			
-  			console.log(current);
-  			console.log(names[current[0]]);
-
   			if (current.length != 1) {
   				if ($.inArray(current[1], names[current[0]]) == -1){
   					names[current[0]].push(current[1]);	
@@ -74,17 +92,7 @@ function getTitle(root) {
 
 }
 
-
-function getHTML() {
-
-}
-
 $(document).ready(function(){
-
-	//Define some global variables
-	Window.scroll_save = 0;
-	Window.localhost = "http://127.0.0.1:5000/webshare/api/v1.0/";
-	Window.server_data;
 
 	//Search behavior
 	function clearHTML(){

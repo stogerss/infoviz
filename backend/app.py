@@ -86,7 +86,6 @@ def get_highlighted_graph(query):
         q.append(y)
         while len(q) != 0:
             cur = q.pop()
-            print cur
            
             try:
                 browser = mechanize.Browser()
@@ -110,12 +109,7 @@ def get_highlighted_graph(query):
                 for child in cur['children']:
                     q.append(child)
 
-    print "TITS"            
-    for g in highlighted_graph.iteritems():
-        print g
-
     to_ret = [g[1] for g in highlighted_graph.iteritems() if highlight_exists(g[1])]
-    print to_ret
     return jsonify({'graph': to_ret}), 201
 
 @app.route('/webshare/api/v1.0/new_session_from/<string:session_name>', methods = ['GET'])

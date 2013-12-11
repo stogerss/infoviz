@@ -87,9 +87,6 @@ def format_return():
     """
     Self explanatory.
     """
-
-    print graphs
-
     to_ret = [g[1] for g in graphs.iteritems()]
     return jsonify({'graph': to_ret}), 201
 
