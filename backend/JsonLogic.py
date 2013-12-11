@@ -3,6 +3,8 @@ from urlparse import urlparse
 import json
 from flask import jsonify
 import settings
+from copy import deepcopy
+import mechanize
 
 # Tab Groupings in the form
 # =========================
@@ -164,3 +166,39 @@ def store_new_handler(tab_id, from_url, to_url, date, name, title):
         update_json(new_child, from_url, graphs[group])
 
     return format_return()
+
+def get_highlighted_graph_handler(query):
+    queries = query.split(" ")
+    highlighted_graph = deepcopy(graphs)
+
+
+    for x, y in highlighted_graph.iteritems():
+        q = []
+        q.append(y)
+        while len(q) != 0:
+            cur = q.pop()
+           
+            try:
+                browser = mechanize.Browser()
+                browser.set_handle_robots(False)
+                page = browser.open(cur['url'])
+                html = page.read()
+                html = html.decode('utf-8')
+                frequency = 0
+                for x in queries:
+                    frequency = html.count(x)
+                if frequency > 0:
+                    cur['count'] = frequency
+                for child in cur['children']:
+                    q.append(child)
+            except:
+                url = cur['url']
+                for x in queries:
+                    if x in url:
+                        cur['count']  = 1
+                #name = cur['name']
+                for child in cur['children']:
+                    q.append(child)
+
+    to_ret = [g[1] for g in highlighted_graph.iteritems() if highlight_exists(g[1])]
+    return jsonify({'graph': to_ret}), 201
