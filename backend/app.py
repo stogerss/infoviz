@@ -47,33 +47,7 @@ def store_new():
     else:
         title = ""
 
-    # Create new Node
-    new_child = {
-            'name': name,
-            'url': to_url,
-            'time': date,
-            'children': [],
-            'title': title
-            }
-
-    # New Tab Situation
-    if (from_url == "root"):
-        groups[str(tab_id)] = [tab_id]
-        graphs[str(tab_id)] = new_child
-        return format_return()
-
-    # Moving through the same site.
-    if (get_name(to_url) == name):
-        name = ""
-
-    # Find which graph this belongs to.
-    group = find_group(tab_id, new_child, from_url)
-
-    # If I've seen this node, do nothing, else add in.
-    if not seen_before(to_url, graphs[group]):
-        update_json(new_child, from_url, graphs[group])
-
-    return format_return()
+    return store_new_handler(tab_id, from_url, to_url, date, name, title)
 
 @app.route('/webshare/api/v1.0/search/<string:query>', methods = ['GET'])
 def get_highlighted_graph(query):
