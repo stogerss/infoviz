@@ -13,11 +13,37 @@ function transferToExplore(){
 function render_multiple(json_list, container) {
 
 	// return
-	for (j in json_list) {
-		json = json_list[j];
-		add_html(j, container);
-		history_render(json, j);
-	}
+  var map = {};
+  console.log(json_list);
+  for (j in json_list) {
+    var node = json_list[j];
+    var time = new Date(node.time);
+    time = time.getTime();
+    if (time in map) {
+      map[time].push(node);
+    } else {
+      map[time] = [node];
+    }
+  }
+
+  var keys = Object.keys(map);
+  keys = keys.sort(function(a,b) {return b-a});
+  
+  var count = 0;
+  for (var i =0; i< keys.length; i++){
+    var key = keys[i];
+    for (var j =0; j< map[key].length; j++) {
+      add_html(count, container);
+      history_render(map[key][j], count);
+      count++
+    }
+  }
+
+	// for (j in json_list) {
+	// 	json = json_list[j];
+	// 	add_html(j, container);
+	// 	history_render(json, j);
+	// }
 }
 
 function add_html(j, container) {

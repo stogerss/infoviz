@@ -34,7 +34,7 @@ function prettyDate(dt)
                 return s+(['st','nd','rd'][l-1] || 'th');
             })(dt.getDate()) + ", " +
             dt.getHours() + ":" + ("0" + dt.getMinutes()).slice(-2);
-	var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+	var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 	ret = days[dt.getDay()] + " " + ret;
     return ret;
 }           
