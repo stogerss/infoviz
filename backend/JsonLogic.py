@@ -25,7 +25,6 @@ graphs = {}
 def get_name(url):
 
     extracted = tldextract.extract(url) #tldextract is good at getting the domain and subdomain
-    print extracted
     name = extracted.domain 
     name = name[0].upper() + name[1:]
     subdomain = extracted.subdomain
@@ -35,9 +34,11 @@ def get_name(url):
     extracted = urlparse(url) #urlparse is good at getting path
     path = extracted.path
     if len(path) > 1:
-        if "/wiki/" in path or "/reddit/r/" in path:
+        if "Reddit" in name and "/r/" in path: #todo this doesn't work
+            path = path.split("/")[2]
+        elif "/wiki/" in path:
             path = path.split("/")[2] #because the wiki is just extraneous we want the page title
-        if path[0] == "/":
+        elif path[0] == "/":
             path = path.split("/")[1]
         else:
             path = path.split("/")[0]

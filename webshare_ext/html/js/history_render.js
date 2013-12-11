@@ -42,6 +42,7 @@ function history_render(root, j) {
   $(click_div).on("click", function(){
     transferToExplore();
     explore_render(root);
+    setIFrame(root);
   });
 
   var title_element = $("#f" + parseInt(j)).parent().children(".graph-title")[0];
@@ -103,7 +104,6 @@ function history_render(root, j) {
       })
       .on("click", function(d) { 
         window.open(d.url);
-        
       })
       .append("svg:title")
       .text(function(d) {return  d.url});;
