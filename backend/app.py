@@ -33,7 +33,7 @@ def store_new():
 
     if (not 'id' in request.json or
         not 'from' in request.json or
-        not 'to' in request.json or):
+        not 'to' in request.json):
         abort(400)
 
     # Grab JSON data
@@ -42,7 +42,10 @@ def store_new():
     to_url = request.json['to']
     date = time.strftime("  %c")
     name = get_name(to_url)
-    title = request.json['title']
+    if ("title" in request.json):
+        title = request.json['title']
+    else:
+        title = ""
 
     # Create new Node
     new_child = {
