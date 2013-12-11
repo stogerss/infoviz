@@ -1,5 +1,5 @@
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Lucida Grande', Helvetica, sans-serif;
   font-size: 12px;
   color: #1c1c1c;
 }
@@ -161,7 +161,7 @@ body {
   position: absolute;
   bottom: 5px;
   cursor: pointer;
-  color: rgb(138, 138, 138);
+  color: rgba(221, 64, 64,0.6);
   opacity: 0;
   pointer-events:none;
   transition: opacity 0.2s ease-in;
@@ -173,7 +173,7 @@ body {
 }
 
 .graph-title .explore-button:hover {
-  color: black;
+  color: rgba(221, 64, 64,1);
 }
 
 
@@ -329,9 +329,8 @@ svg circle.inactive {
   color: black;
 }
 
-
 .node .node-text {
-  font-size: 10px;
+  font-size: 11px;
   width: 100px;
 }
 
@@ -354,8 +353,8 @@ svg circle.inactive {
   display: block;
 }
 
-.d3-tip {
-  display: none;
+.tooltip {
+  font-size: 12px;
 }
 
 .node-url {

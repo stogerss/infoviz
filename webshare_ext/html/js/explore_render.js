@@ -68,7 +68,6 @@ function explore_render(root) {
 
         var current = d3.select(this);
         current.attr("class", "active");
-
         setIFrame(d);
       });
 

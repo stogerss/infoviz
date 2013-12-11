@@ -42,6 +42,7 @@ function history_render(root, j) {
   $(click_div).on("click", function(){
     transferToExplore();
     explore_render(root);
+    setIFrame(root);
   });
 
   var title_element = $("#f" + parseInt(j)).parent().children(".graph-title")[0];
@@ -73,20 +74,24 @@ function history_render(root, j) {
       .attr("class", "link")
       .attr("d", diagonal);
 
+  var tooltip = d3.select("body")
+      .append("div")
+      .style("font-size", "11px")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("height", "100px")
+      .style("width", "150px")
+      .text("Sample");
+
   var node = svg.selectAll(".node")
       .data(nodes)
       .enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-
-  var tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-5, 0])
-      .html(function(d) {
-        return "<div class='node-url'>" + d.url + "</div>";
-      });
-
-  svg.append("tip_holder").call(tip);
+      .on("mouseover", function(d){return tooltip.style("visibility", "visible").text(d.name);})
+      .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
   node.append("circle")
       .attr("r", 6)
@@ -97,21 +102,11 @@ function history_render(root, j) {
       		return "inactive";
       	}
       })
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide)
       .on("click", function(d) { 
-        tip.hide();
         window.open(d.url);
-        
-      });
-
-  node.append("foreignObject")
-      .attr("x", function(d) { return d.children ? -10 : 10; })
-      .attr("y", 15)
-      .attr('width', 200)
-      .attr('height', 200)
-      .append("xhtml:div")
-      .html(function(d) {return "<div class='node-text'>" + "<a href='"+ d.url +"'>" + d.name + "</a></div>"});
+      })
+      .append("svg:title")
+      .text(function(d) {return  d.url});;
 
   var deets = getTitle(root);
   titler(j, deets[0], deets[1]);

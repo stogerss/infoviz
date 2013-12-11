@@ -42,7 +42,10 @@ def store_new():
     to_url = request.json['to']
     date = time.strftime("  %c")
     name = get_name(to_url)
-    title = request.json['title']
+    if ("title" in request.json):
+        title = request.json['title']
+    else:
+        title = ""
 
     return store_new_handler(tab_id, from_url, to_url, date, name, title)
 
