@@ -1,4 +1,3 @@
-
 function transferToExplore(){
   //should launch explore
   var body_scroll = $("body").scrollTop();
@@ -62,7 +61,7 @@ function history_render(root, j) {
   var click_div =  document.createElement("div");
   click_div.id = "explore-button" + parseInt(j);
   $(click_div).attr('class', "explore-button");
-  $(click_div).html("Explore more..");
+  $(click_div).html("View details..");
   
   //Bind it
   $(click_div).on("click", function(){
@@ -119,8 +118,11 @@ function history_render(root, j) {
       .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
       .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
-  node.append("circle")
-      .attr("r", 6)
+  node.append("rect")
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("x", -10)
+      .attr("y", -10)
       .attr("class", function(d) {
       	if (d.count) {
       		return "active";
@@ -133,6 +135,22 @@ function history_render(root, j) {
       })
       .append("svg:title")
       .text(function(d) {return  d.url});;
+
+
+  node.append("image")
+    .attr("xlink:href", function(d) {
+      var url = d.url;
+      if (url.indexOf("mikesbikes") >0) {
+        return "http://mikesbikes.com/merchant/344/images/site/mblogo_140x125.jpg";
+      }
+      var favicon_url = "http://g.etfv.co/" + url + "?defaulticon=lightpng";
+      return favicon_url;
+      
+    })
+    .attr("x", -8)
+    .attr("y", -8)
+    .attr("width", 16)
+    .attr("height", 16);
 
   var deets = getTitle(root);
   titler(j, deets[0], deets[1]);

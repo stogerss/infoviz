@@ -150,6 +150,6 @@ $(document).ready(function(){
 
 function setIFrame(d) {
   document.getElementById("page-view").src = d.url;
-  $("#url-title").text(d.url);
+  $("#url-title").html( "<a href='" + d.url + "'>" + d.url + "</a>");
   $("#time-title").text(d.time);
 }

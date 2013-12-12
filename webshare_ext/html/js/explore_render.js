@@ -40,40 +40,39 @@ function explore_render(root) {
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 
-    var tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-10, 0])
-      .html(function(d) {
-        return "<div class='node-url'" + d.url + "</div>";
-      });
-
-    node.append("circle")
-      .attr("r", 6)
-      .attr("class", function(d, i) {
-        if (i==0){
-          return "active";
-        } else {
-          return "inactive";
-        }
+    node.append("rect")
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("x", -10)
+      .attr("y", -10)
+      .attr("class", function(d,i) {
+        if (i==0) { return "active";}
+        return "inactive";
       })
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide)
       .on("click", function(d) { 
-        tip.hide();
         svg = d3.select("#explore svg");
         console.log(svg);
-
-        svg.selectAll("circle")
+        svg.selectAll("rect")
           .attr("class", "inactive");
-
         var current = d3.select(this);
         current.attr("class", "active");
         setIFrame(d);
       });
 
+    node.append("image")
+      .attr("xlink:href", function(d) {
+        var favicon_url = "http://g.etfv.co/" + d.url + "?defaulticon=lightpng";
+        return favicon_url;
+        
+      })
+      .attr("x", -8)
+      .attr("y", -8)
+      .attr("width", 16)
+      .attr("height", 16);
+
     node.append("foreignObject")
       .attr("x", function(d) { return d.children ? -10 : 10; })
-      .attr("y", 10)
+      .attr("y", 15)
       .attr('width', 200)
       .attr('height', 200)
       .append("xhtml:div")
